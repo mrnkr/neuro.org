@@ -1,0 +1,199 @@
+<html lang="es-UY" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Neuro.ORG</title>
+
+  <!-- Material Fonts -->
+  <link rel="stylesheet" href="bower_components/roboto-fontface/css/roboto/roboto-fontface.css">
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="bower_components/angular-material/angular-material.min.js"></script>
+
+  <!-- Angular Avatar -->
+  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="bower_components/angular-avatar/dist/angular-avatar.min.js"></script>
+
+  <!-- Material Icons -->
+  <link href="bower_components/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <!-- Animations -->
+  <link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
+
+  <!-- Forge -->
+  <script src="bower_components/forge/dist/forge.min.js"></script>
+
+  <!-- Entropy -->
+  <script src="libs/entropy.min.js"></script>
+
+  <!-- Chart.js & angular-chart.js -->
+  <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+  <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+  <!-- Moment.js -->
+  <script src="bower_components/moment/min/moment.min.js"></script>
+
+  <script>
+    require('electron-cookies');
+  </script>
+
+  <!-- Socket.io -->
+  <script src="node_modules/socket.io-client/dist/socket.io.min.js"></script>
+
+  <!-- My own stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/hints.css">
+</head>
+<body class="material" ng-app="myApp" ng-controller="myCtrl" ng-cloak>
+
+  <!-- Toolbar -->
+  <md-toolbar ng-dblclick="maximizeClick()" class="md-hue-2 md-tall md-whiteframe-4dp main-toolbar">
+    <div class="md-toolbar-tools" style="-webkit-app-region: drag">
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" aria-label="Settings" ng-click="toggleNav()">
+        <md-icon md-font-set="material-icons">menu</md-icon>
+      </md-button>
+
+      <span flex></span>
+
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" ng-click="minimizeClick()">
+        <md-icon md-font-set="material-icons md-dark">remove</md-icon>
+      </md-button>
+
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" ng-click="maximizeClick()">
+        <md-icon md-font-set="material-icons md-dark">add</md-icon>
+      </md-button>
+
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" ng-click="closeClick()">
+        <md-icon md-font-set="material-icons md-dark">close</md-icon>
+      </md-button>
+    </div>
+    <div layout="row">
+      <span flex></span>
+
+      <md-button aria-label="menu" class="md-fab md-accent move-down" ng-if="showFab" ng-click="onFabClick($event, true)">
+        <md-icon md-font-set="material-icons">person_add</md-icon>
+      </md-button>
+
+      <span flex="5"></span>
+    </div>
+  </md-toolbar>
+
+  <!-- Sidenav -->
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
+    <div ng-controller="navCtrl">
+      <md-toolbar class="md-hue-2 md-tall sidenav-header">
+        <div layout="row">
+          <img class="user-pic" src="img/user.jpg"></img>
+        </div>
+
+        <span flex></span>
+
+        <div layout="row">
+          <h1 class="md-body-2 font-dark">{{user.email}}</h1>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Toggle User Menu" ng-click="toggleUserMenu()">
+            <md-icon md-font-set="material-icons font-dark">{{userMenu}}</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <md-content layout-padding="">
+        <md-list id="regular-menu" ng-hide="menuExpanded" flex>
+          <md-list-item lass="md-3-line" ng-click="changeSection('')">
+            <md-icon md-font-set="material-icons" md-menu-origin>home</md-icon>
+            <h3 class="md-body-2">Inicio</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <md-list-item lass="md-3-line" ng-click="changeSection('patients')">
+            <md-icon md-font-set="material-icons" md-menu-origin>healing</md-icon>
+            <h3 class="md-body-2">Pacientes</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <md-list-item lass="md-3-line" ng-click="changeSection('surgeries')">
+            <md-icon md-font-set="material-icons" md-menu-origin>local_hospital</md-icon>
+            <h3 class="md-body-2">Cirugías</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <md-list-item lass="md-3-line" ng-click="changeSection('users')">
+            <md-icon md-font-set="material-icons" md-menu-origin>person</md-icon>
+            <h3 class="md-body-2">Usuarios</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <md-divider></md-divider>
+
+          <md-list-item lass="md-3-line" ng-click="changeSection('help')">
+            <md-icon md-font-set="material-icons" md-menu-origin>help</md-icon>
+            <h3 class="md-body-2">Ayuda</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <a href="#"><md-list-item lass="md-3-line" ng-click="changeSection('about')">
+            <md-icon md-font-set="material-icons" md-menu-origin>info</md-icon>
+            <h3 class="md-body-2">Acerca de...</h3>
+            <span flex></span>
+          </md-list-item></a>
+        </md-list>
+
+        <md-list id="user-menu" ng-if="menuExpanded" flex>
+          <md-list-item lass="md-3-line" ng-click="editUser($event, true)">
+            <md-icon md-font-set="material-icons" md-menu-origin>email</md-icon>
+            <h3 class="md-body-2">Cambiar email</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <md-list-item lass="md-3-line" ng-click="editUser($event, false)">
+            <md-icon md-font-set="material-icons" md-menu-origin>vpn_key</md-icon>
+            <h3 class="md-body-2">Cambiar contraseña</h3>
+            <span flex></span>
+          </md-list-item>
+
+          <md-divider></md-divider>
+
+          <md-list-item lass="md-3-line" ng-click="logOut($event)">
+            <md-icon md-font-set="material-icons" md-menu-origin>lock</md-icon>
+            <h3 class="md-body-2">Cerrar sesión</h3>
+            <span flex></span>
+          </md-list-item>
+        </md-list>
+      </md-content>
+    </div>
+  </md-sidenav>
+
+  <!-- Content -->
+  <div ng-switch="section" layout="row" layout-alignment="center top">
+    <span flex="15" layout="column"></span>
+
+    <start class="section" ng-switch-default flex></start>
+    <list class="section" content="'pacientes'" ng-switch-when="patients" flex></list>
+    <list class="section" content="'cirugías'" ng-switch-when="surgeries" flex></list>
+    <list class="section" content="'usuarios'" ng-switch-when="users" flex></list>
+    <help class="section" ng-switch-when="help" flex></help>
+    <about class="section" ng-switch-when="about" flex></about>
+
+    <span flex="15" layout="column"></span>
+  </div>
+
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript" src="angular/app.js"></script>
+  <script type="text/javascript" src="angular/main.js"></script>
+  <script type="text/javascript" src="angular/list.js"></script>
+  <script type="text/javascript" src="angular/help.js"></script>
+  <script type="text/javascript" src="angular/nav.js"></script>
+  <!--<script type="text/javascript" src="electron/menu.js"></script>-->
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "neuro.org",
+  "version": "1.0.0",
+  "description": "Material design interface designed to interact with a database - meant for the neurosurgery department of the Maciel Hospital in Montevideo, Uruguay",
+  "main": "./electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node ./nodejs/server"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "electron": "*",
+    "electron-cookies": "^1.1.0",
+    "express": "^4.10.2",
+    "mysql": "*",
+    "node-forge": "^0.7.0",
+    "nodemailer": "^3.1.4",
+    "ping": "^0.2.2",
+    "socket.io": "^1.7.2"
+  },
+  "repository" : {
+    "type" : "git"
+  , "url" : "https://github.com/mrnkr/neuro.org"
+  },
+  "license": "GPL-3.0",
+  "author": "Mr.NKR"
+}

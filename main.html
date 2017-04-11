@@ -1,0 +1,51 @@
+<md-card ng-if="ready" class="move-up" layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h1 class="md-title">Inicio</h1>
+
+      <span flex></span>
+    </div>
+  </md-toolbar>
+
+  <md-divider></md-divider>
+
+  <md-card-content>
+    <md-subheader class="md-no-sticky section-title">Carga de trabajo</md-subheader>
+
+    <div layout="row" layout-align="center center" class="chartContainerHorizontal">
+      <div layout="column" layout-align="center center" class="lineContainerVertical">
+        <canvas id="workload" ng-if="ready" class="chart chart-line"
+                chart-data="workloadData"
+                chart-labels="workloadLabels"
+                chart-series="workloadSeries"
+                chart-options="lineOptions"
+                chart-dataset-override="datasetOverride">
+        </canvas>
+      </div>
+    </div>
+  </md-card-content>
+
+  <md-card-content>
+    <md-subheader class="md-no-sticky section-title">Estadísticas</md-subheader>
+
+    <div layout="row" layout-align="space-around center" class="chartContainerHorizontal">
+      <div layout="column" layout-align="center center" class="chartContainerVertical">
+        <canvas id="pathologies" ng-if="ready" class="chart chart-pie"
+                chart-data="pathologiesData"
+                chart-labels="pathologiesLabels"
+                chart-colors="pieColors"
+                chart-options="pathologiesOptions">
+        </canvas>
+      </div>
+
+      <div layout="column" layout-align="center center" class="chartContainerVertical">
+        <canvas id="success" ng-if="ready" class="chart chart-pie"
+                chart-data="successData"
+                chart-labels="successLabels"
+                chart-colors="pieColors"
+                chart-options="successOptions">
+        </canvas>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>

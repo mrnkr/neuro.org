@@ -1,0 +1,72 @@
+<md-dialog aria-label="Edit user data" flex="65">
+  <md-toolbar class="md-hue-2 md-whiteframe-4dp">
+    <div class="md-tool-bar-tools" ng-if="email" style="margin-left: 16px">
+      <h4 class="md-title">Cambiar email</h4>
+    </div>
+
+    <div class="md-tool-bar-tools" ng-hide="email" style="margin-left: 16px">
+      <h4 class="md-title">Cambiar contraseña</h4>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content" ng-if="email">
+      <form name="changeMail" layout="column" ng-cloak>
+        <md-input-container flex>
+          <label>Nuevo email</label>
+          <input name="mail"
+                 type="email"
+                 ng-model="input.mail"
+                 my-enter="saveClick()">
+        </md-input-container>
+      </form>
+    </div>
+
+    <div class="md-dialog-content" ng-hide="email">
+      <form name="changePass" layout="column" ng-cloak>
+        <md-input-container flex>
+          <label>Vieja contraseña</label>
+          <input name="oldPass"
+                 type="password"
+                 ng-model="input.oldPass"
+                 my-enter="saveClick()">
+        </md-input-container>
+
+        <span flex="5"></span>
+
+        <md-input-container flex>
+          <label>Nueva contraseña</label>
+          <input name="passOne"
+                 type="password"
+                 ng-model="input.passOne"
+                 my-enter="saveClick()">
+
+          <md-progress-linear md-mode="determinate"
+                              value="{{entropy}}"
+                              ng-class="entropyLevelClass"></md-progress-linear>
+        </md-input-container>
+
+        <span flex="10"></span>
+
+        <md-input-container flex>
+          <label>Repetir nueva contraseña</label>
+          <input name="passTwo"
+                 type="password"
+                 ng-model="input.passTwo"
+                 compare-to="input.passOne"
+                 my-enter="saveClick()">
+
+          <div ng-messages="resetForm.passTwo.$error">
+            <div ng-message="compareTo" class="md-caption">Las contraseñas no coinciden</div>
+          </div>
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button class="md-primary" ng-click="cancelClick()">Cancelar</md-button>
+    <md-button class="md-primary" ng-click="saveClick()">Guardar</md-button>
+  </md-dialog-actions>
+</md-dialog>

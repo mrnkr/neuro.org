@@ -1,0 +1,379 @@
+<md-card id="print-content" ng-if="ready" class="move-up" layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h1 class="md-title">{{ttl}}</h1>
+
+      <span flex></span>
+
+      <!-- Search bar -->
+      <md-button class="md-icon-button" aria-label="Search" ng-if="!ctrl.searching" ng-click="ctrl.toggleSearch()">
+        <md-icon md-font-set="material-icons md-dark">search</md-icon>
+      </md-button>
+
+      <form ng-submit="$event.preventDefault()" name="searchForm" ng-if="ctrl.searching">
+        <div layout="row" layout-align="center center">
+          <md-input-container>
+            <label>Buscar</label>
+            <input ng-model="ctrl.searchText" class="md-body-1" flex require>
+          </md-input-container>
+
+          <div layout="column">
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Cancel" ng-click="ctrl.toggleSearch()">
+              <md-icon md-font-set="material-icons md-dark">clear</md-icon>
+            </md-button>
+            <span flex="70"></span>
+          </div>
+        </div>
+      </form>
+
+      <!-- End search bar -->
+
+      <!-- Print Menu -->
+      <md-menu md-position-mode="target-right target" ng-if="ttl === 'Cirugías'">
+        <md-button aria-label="Open print menu" class="md-icon-button" ng-click="$mdMenu.open()">
+          <md-icon md-font-set="material-icons md-dark">print</md-icon>
+        </md-button>
+
+        <md-menu-content width="2" >
+          <md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="print(false)"><md-icon md-font-set="material-icons md-dark">picture_as_pdf</md-icon> PDF</md-button>
+            </md-menu-item>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="print(true)"><md-icon md-font-set="material-icons md-dark">library_books</md-icon> Papel</md-button>
+            </md-menu-item>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+
+      <md-menu md-position-mode="target-right target" ng-if="ttl !== 'Usuarios'">
+        <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
+          <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+        </md-button>
+
+        <md-menu-content width="4">
+          <div ng-if="ttl === 'Pacientes'">
+            <md-menu-item>
+              <label>Dividir según</label>
+            </md-menu-item>
+
+            <md-radio-group ng-model="options.divideBy">
+
+              <md-menu-item>
+                <md-button><md-radio-button value="operatedOrNot" class="md-primary">Si fueron o no operados</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="mineOrNot" class="md-primary">Si son mis pacientes o no</md-radio-button></md-button>
+              </md-menu-item>
+
+            </md-radio-group>
+
+            <md-divider></md-divider>
+
+            <md-menu-item>
+              <label>Ordenar según</label>
+            </md-menu-item>
+
+            <md-radio-group ng-model="options.orderBy">
+
+              <md-menu-item>
+                <md-button><md-radio-button value="last" class="md-primary">Apellido</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="name" class="md-primary">Nombre</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="age" class="md-primary">Edad</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="-last_op_date" class="md-primary">Última operación</md-radio-button></md-button>
+              </md-menu-item>
+
+            </md-radio-group>
+
+            <md-divider></md-divider>
+
+            <md-menu-item>
+              <label>Filtrar</label>
+            </md-menu-item>
+
+            <md-menu-item>
+              <md-button><md-checkbox ng-model="options.showDead" aria-label="Deadly filter">Mostrar pacientes fallecidos</md-checkbox></md-button>
+            </md-menu-item>
+          </div>
+
+          <div ng-if="ttl === 'Cirugías'">
+            <md-menu-item>
+              <label>Dividir según</label>
+            </md-menu-item>
+
+            <md-radio-group ng-model="options.divideBy">
+
+              <md-menu-item>
+                <md-button><md-radio-button value="doneOrNot" class="md-primary">Si fueron o no realizadas</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="mineOrNot" class="md-primary">Si son mías o no</md-radio-button></md-button>
+              </md-menu-item>
+
+            </md-radio-group>
+
+            <md-divider></md-divider>
+
+            <md-menu-item>
+              <label>Ordenar según</label>
+            </md-menu-item>
+
+            <md-radio-group ng-model="options.orderBy">
+
+              <md-menu-item>
+                <md-button><md-radio-button value="-scheduled" class="md-primary">Fecha</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="type" class="md-primary">Tipo de cirugía</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="pathology" class="md-primary">Patología</md-radio-button></md-button>
+              </md-menu-item>
+
+            </md-radio-group>
+
+            <md-divider></md-divider>
+
+            <md-menu-item>
+              <label>Ver desde</label>
+            </md-menu-item>
+
+            <md-radio-group ng-model="options.seeFrom">
+
+              <md-menu-item>
+                <md-button><md-radio-button value="6m" class="md-primary">6 meses atrás</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="1yyyy" class="md-primary">1 año atrás</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="2yyyy" class="md-primary">2 años atrás</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="5yyyy" class="md-primary">5 años atrás</md-radio-button></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button><md-radio-button value="" class="md-primary">El inicio de los tiempos</md-radio-button></md-button>
+              </md-menu-item>
+
+            </md-radio-group>
+          </div>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </md-toolbar>
+
+  <md-divider></md-divider>
+
+  <md-card-content>
+    <div layout="row" layout-align="center center" ng-if="empty" flex>
+      <img src="img/empty.png"></img>
+    </div>
+
+    <md-list ng-hide="empty" flex>
+      <div id="user-list" ng-if="ttl === 'Usuarios'">
+        <md-list-item class="md-3-line" ng-if="ttl === 'Usuarios'" ng-class="listKlass" ng-repeat="item in users | search: ctrl.searchText: ttl | orderBy: item.last" ng-click="null">
+          <ng-avatar string="{{item.name + ' ' + item.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+          <div class="md-list-item-text list-item-text" layout="column">
+            <h3>{{ item.last + ', ' + item.name }}</h3>
+            <h4>{{ item.type === 'anesthetist' ? 'Anestesista' : 'Cirujano' }} {{ item.admin ? ' // Admin' : '' }}</h4>
+            <p>{{ item.email }}</p>
+          </div>
+
+          <span flex></span>
+
+          <md-menu md-position-mode="target-right target" ng-if="me.admin && me.id !== item.id">
+            <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
+              <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+            </md-button>
+
+            <md-menu-content width="2">
+              <md-menu-item>
+                <md-button ng-click="deactivateClick(item)"><md-icon md-font-set="material-icons md-dark" md-menu-origin>{{ item.active ? 'lock_outline' : 'lock_open' }}</md-icon>
+                            <span md-menu-align-target>{{ item.active ? 'Desactivar' : 'Activar' }}</span></md-button>
+              </md-menu-item>
+
+              <md-menu-item>
+                <md-button ng-click="deleteClick(item)"><md-icon md-font-set="material-icons md-dark" md-menu-origin>delete</md-icon>
+                            <span md-menu-align-target>Eliminar</span></md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </div>
+
+      <div id="patient-list" ng-if="ttl === 'Pacientes'">
+        <md-subheader ng-if="showHeaders" class="md-no-sticky">{{header1}}</md-subheader>
+
+        <!-- My patient list item -->
+        <md-list-item ng-if="ttl === 'Pacientes'"
+                      class="md-3-line"
+                      ng-class="listKlass"
+                      ng-repeat="patient in patients | myFilter: options.divideBy: true: me | deadlyFilter: options.showDead | search: ctrl.searchText: ttl | orderBy: options.orderBy"
+                      ng-click="showDialog($event, false, patient)">
+          <ng-avatar string="{{patient.name + ' ' + patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+          <div class="md-list-item-text list-item-text" layout="column">
+            <h3>{{ patient.last + ', ' + patient.name }} {{ patient.date_of_death !== null ? '(X)' : '' }}</h3>
+            <h4>{{ patient.id.charAt(0) + '.' + patient.id.substring(1, 4) + '.' + patient.id.substring(4, 7) + '-' + patient.id.slice(-1) }}</h4>
+            <p>{{ patient.age }} años</p>
+          </div>
+
+          <span flex></span>
+
+          <md-menu ng-if="me.admin" md-position-mode="target-right target">
+            <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
+              <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+            </md-button>
+
+            <md-menu-content width="2">
+              <md-menu-item>
+                <md-button ng-click="deleteClick(patient)"><md-icon md-font-set="material-icons md-dark" md-menu-origin>delete</md-icon>
+                            <span md-menu-align-target>Eliminar</span></md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+
+        <md-subheader ng-if="showHeaders" class="md-no-sticky">{{header2}}</md-subheader>
+
+        <!-- Someone else's patient list item -->
+        <md-list-item ng-if="ttl === 'Pacientes'"
+                      class="md-3-line"
+                      ng-class="listKlass"
+                      ng-repeat="patient in patients | myFilter: options.divideBy: false: me | deadlyFilter: options.showDead | search: ctrl.searchText: ttl | orderBy: options.orderBy"
+                      ng-click="showDialog($event, false, patient)">
+          <ng-avatar string="{{patient.name + ' ' + patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+          <div class="md-list-item-text list-item-text" layout="column">
+            <h3>{{ patient.last + ', ' + patient.name }} {{ patient.date_of_death !== null ? '(X)' : '' }}</h3>
+            <h4>{{ patient.id.charAt(0) + '.' + patient.id.substring(1, 4) + '.' + patient.id.substring(4, 7) + '-' + patient.id.slice(-1) }}</h4>
+            <p>{{ patient.age }} años</p>
+          </div>
+
+          <span flex></span>
+
+          <md-menu ng-if="me.admin" md-position-mode="target-right target">
+            <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
+              <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+            </md-button>
+
+            <md-menu-content width="2">
+              <md-menu-item>
+                <md-button ng-click="deleteClick(patient)"><md-icon md-font-set="material-icons md-dark" md-menu-origin>delete</md-icon>
+                            <span md-menu-align-target>Eliminar</span></md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </div>
+
+      <div id="surgery-list" ng-if="ttl === 'Cirugías'">
+        <md-subheader ng-if="showHeaders" class="md-no-sticky">
+          <div layout="row" layout-align="space-between center">
+            {{header1}}
+            <md-button class="md-icon-button" aria-label="Toggle performed surgery list" ng-click="toggleUnperformedSurgeryList()">
+              <md-icon md-font-set="material-icons font-dark">{{ options.showUndone ? 'arrow_drop_up' : 'arrow_drop_down' }}</md-icon>
+            </md-button>
+          </div>
+        </md-subheader>
+
+        <!-- Unperformed surgery item -->
+        <md-list-item ng-if="ttl === 'Cirugías' && options.showUndone"
+                      class="md-3-line"
+                      ng-class="listKlass"
+                      ng-repeat="surgery in surgeries | myFilter: options.divideBy: true: me | search: ctrl.searchText: ttl | orderBy: options.orderBy === '-scheduled' ? 'scheduled' : options.orderBy"
+                      ng-click="showDialog($event, false, surgery)">
+          <ng-avatar string="{{surgery.patient.name + ' ' + surgery.patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+          <div class="md-list-item-text list-item-text" layout="column">
+            <h3>{{ surgery.type }} - {{ surgery.pathology }}</h3>
+            <h4>{{ surgery.patient.last + ', ' + surgery.patient.name }}</h4>
+            <p ng-if="surgery.scheduled !== null">Agendada para: {{ surgery.scheduled.getDate() + '/' + (surgery.scheduled.getMonth() + 1) + '/' + surgery.scheduled.getFullYear() }}</p>
+          </div>
+
+          <span flex></span>
+
+          <md-menu ng-if="me.type === 'surgeon'" md-position-mode="target-right target">
+            <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
+              <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+            </md-button>
+
+            <md-menu-content width="2">
+              <md-menu-item>
+                <md-button ng-click="deleteClick(surgery)"><md-icon md-font-set="material-icons md-dark" md-menu-origin>delete</md-icon>
+                            <span md-menu-align-target>Eliminar</span></md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+
+        <md-subheader ng-if="showHeaders" class="md-no-sticky">
+          <div layout="row" layout-align="space-between center">
+            {{header2}}
+            <md-button class="md-icon-button" aria-label="Toggle performed surgery list" ng-click="togglePerformedSurgeryList()">
+              <md-icon md-font-set="material-icons font-dark">{{ options.showDone ? 'arrow_drop_up' : 'arrow_drop_down' }}</md-icon>
+            </md-button>
+          </div>
+        </md-subheader>
+
+        <!-- Performed surgery item -->
+        <md-list-item ng-if="ttl === 'Cirugías' && options.showDone"
+                      class="md-3-line"
+                      ng-class="listKlass"
+                      ng-repeat="surgery in surgeries | myFilter: options.divideBy: false: me | timeyFilter: options.seeFrom | search: ctrl.searchText: ttl | orderBy: options.orderBy"
+                      ng-click="showDialog($event, false, surgery)">
+          <ng-avatar string="{{surgery.patient.name + ' ' + surgery.patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+          <div class="md-list-item-text list-item-text" layout="column">
+            <h3>{{ surgery.type }} - {{ surgery.pathology }}</h3>
+            <h4>{{ surgery.patient.last + ', ' + surgery.patient.name }}</h4>
+            <p ng-if="surgery.scheduled !== null">Agendada para: {{ surgery.scheduled.getDate() + '/' + (surgery.scheduled.getMonth() + 1) + '/' + surgery.scheduled.getFullYear() }}</p>
+          </div>
+
+          <span flex></span>
+
+          <md-menu ng-if="me.type === 'surgeon'" md-position-mode="target-right target">
+            <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
+              <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+            </md-button>
+
+            <md-menu-content width="2">
+              <md-menu-item>
+                <md-button ng-click="deleteClick(surgery)"><md-icon md-font-set="material-icons md-dark" md-menu-origin>delete</md-icon>
+                            <span md-menu-align-target>Eliminar</span></md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </div>
+    </md-list>
+  </md-card-content>
+</md-card>

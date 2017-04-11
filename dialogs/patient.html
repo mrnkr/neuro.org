@@ -1,0 +1,144 @@
+<md-dialog aria-label="Patient data" flex="65">
+  <md-toolbar class="md-hue-2 md-whiteframe-4dp">
+    <div class="md-toolbar-tools" ng-hide="editing">
+      <ng-avatar string="{{ patient.name + ' ' + patient.last }}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+      <div layout="column" style="margin-left: 16px">
+        <h4 class="md-title" style="margin-bottom: 0">{{ patient.last + ', ' + patient.name }}</h4>
+        <h5 class="md-body-1" style="margin-top: 0">{{ patient.id.charAt(0) + '.' + patient.id.substring(1, 4) + '.' + patient.id.substring(4, 7) + '-' + patient.id.slice(-1) }}</h5>
+      </div>
+      <span flex></span>
+
+      <md-menu md-position-mode="target-right target" ng-if="me.type === 'surgeon'">
+        <md-button class="md-icon-button" style="-webkit-app-region: no-drag" aria-label="More" ng-click="$mdMenu.open()">
+          <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+        </md-button>
+
+        <md-menu-content width="2">
+          <md-menu-item>
+            <md-button style="-webkit-app-region: no-drag" ng-click="editClick()"><span md-menu-align-target>Editar</span></md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" ng-click="closeClick()">
+        <md-icon md-font-set="material-icons md-dark">close</md-icon>
+      </md-button>
+    </div>
+
+    <div class="md-tool-bar-tools" style="margin-left: 16px" ng-if="editing">
+      <h4 class="md-title">Editando paciente</h4>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content ng-hide="editing">
+    <div class="md-dialog-content">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Información personal</md-subheader>
+        <md-list-item class="md-2-line" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark">cake</md-icon>
+            <h3 class="list-item-text">Fecha de nacimiento</h3>
+            <span flex></span>
+            <h3>{{ patient.birthdate.getDate() + '/' + (patient.birthdate.getMonth() + 1) + '/' + patient.birthdate.getFullYear() }}</h3>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark">transfer_within_a_station</md-icon>
+            <h3 class="list-item-text">Primer consulta</h3>
+            <span flex></span>
+            <h3>{{ patient.first.getDate() + '/' + (patient.first.getMonth() + 1) + '/' + patient.first.getFullYear() }}</h3>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark">local_hospital</md-icon>
+            <h3 class="list-item-text">Médico tratante</h3>
+            <span flex></span>
+            <h3>{{ surgeon.last + ', ' + surgeon.name }}</h3>
+          </div>
+        </md-list-item>
+
+        <md-subheader class="md-no-sticky" ng-if="surgeries.length > 0">Cirugías</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="surgery in surgeries" ng-click="surgeryClick($event, $index)">
+          <div class="md-list-item-text list-item-text" layout="column">
+            <h3>{{ surgery.type }}</h3>
+            <p>{{ surgery.scheduled.getDate() + '/' + (surgery.scheduled.getMonth() + 1) + '/' + surgery.scheduled.getFullYear() }}</p>
+          </div>
+        </md-list-item>
+
+        <md-subheader class="md-no-sticky" ng-if="patient.background.length > 0">Antecedentes</md-subheader>
+        <md-list-item class="md-3-line md-long-text" ng-if="patient.background.length > 0">
+          <div class="md-list-item-text">
+            <p>{{ patient.background }}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-content ng-if="editing">
+    <div class="md-dialog-content">
+      <form ng-cloak>
+        <md-input-container class="md-block" flex>
+          <label>CI</label>
+          <input ng-model="patient.id"
+                 md-minlength="8"
+                 md-maxlength="8"
+                 ng-disabled="canGoBackToNotEditing"
+                 required>
+        </md-input-container>
+
+        <div layout="row" class="md-block" flex>
+          <md-input-container class="md-block" flex>
+            <label>Nombre</label>
+            <input ng-model="patient.name" md-maxlength="35" required>
+          </md-input-container>
+
+          <span flex="5"></span>
+
+          <md-input-container class="md-block" flex>
+            <label>Apellido</label>
+            <input ng-model="patient.last" md-maxlength="35" required>
+          </md-input-container>
+        </div>
+
+        <div layout="row" flex>
+          <md-input-container>
+            <label>Nacimiento</label>
+            <md-datepicker class="md-block" ng-model="patient.birthdate" required></md-datepicker>
+          </md-input-container>
+
+          <span flex></span>
+
+          <md-input-container>
+            <label>Primer consulta</label>
+            <md-datepicker class="md-block" ng-model="patient.first" required></md-datepicker>
+          </md-input-container>
+
+          <span flex="5"></span>
+        </div>
+
+        <md-input-container class="md-block" flex>
+          <label>Médico tratante</label>
+          <md-select ng-model="patient.surgeon_id" required>
+            <md-option ng-repeat="surgeon in surgeons" value="{{surgeon.id}}">
+              {{ surgeon.last + ', ' + surgeon.name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Antecedentes</label>
+          <textarea ng-model="patient.background" md-maxlength="256" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row" ng-if="editing">
+    <span flex></span>
+    <md-button class="md-primary" ng-click="cancelClick()">Cancelar</md-button>
+    <md-button class="md-primary" ng-click="saveClick()">Guardar</md-button>
+  </md-dialog-actions>
+</md-dialog>

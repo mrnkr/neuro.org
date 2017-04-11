@@ -1,0 +1,293 @@
+<md-dialog aria-label="Patient data" flex="65">
+  <md-toolbar class="md-hue-2 md-whiteframe-4dp">
+    <div class="md-toolbar-tools" ng-hide="editing">
+      <h4 class="md-title">{{ surgery.type }} - {{ surgery.patient.last + ', ' + surgery.patient.name }}</h4>
+
+      <span flex></span>
+
+      <md-menu md-position-mode="target-right target">
+        <md-button class="md-icon-button" style="-webkit-app-region: no-drag" aria-label="More" ng-click="$mdMenu.open()">
+          <md-icon md-font-set="material-icons md-dark" md-menu-origin>more_vert</md-icon>
+        </md-button>
+
+        <md-menu-content width="2">
+          <md-menu-item ng-if="me.type === 'anesthetist'">
+            <md-button style="-webkit-app-region: no-drag" ng-click="anesthetistOk()"><span md-menu-align-target>Dar visto bueno</span></md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="me.type === 'surgeon'">
+            <md-button style="-webkit-app-region: no-drag" ng-click="editClick()"><span md-menu-align-target>Editar</span></md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" ng-click="closeClick()">
+        <md-icon md-font-set="material-icons md-dark">close</md-icon>
+      </md-button>
+    </div>
+
+    <div class="md-tool-bar-tools" style="margin-left: 16px" ng-if="editing">
+      <h4 class="md-title">Editando cirugía</h4>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content ng-hide="editing">
+    <div class="md-dialog-content">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Información</md-subheader>
+        <md-list-item class="md-2-line" ng-if="surgery.scheduled !== null" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark">schedule</md-icon>
+            <h3 class="list-item-text">Agendada para</h3>
+            <span flex></span>
+            <h3>{{ surgery.scheduled.getDate() + '/' + (surgery.scheduled.getMonth() + 1) + '/' + surgery.scheduled.getFullYear() }}</h3>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark" >healing</md-icon>
+            <h3 class="list-item-text">Patología</h3>
+            <span flex></span>
+            <h3>{{ surgery.pathology }}</h3>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark" >local_hospital</md-icon>
+            <h3 class="list-item-text">Cirujano a cargo</h3>
+            <span flex></span>
+            <h3>{{ surgery.surgeon.last + ', ' + surgery.surgeon.name }}</h3>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <div layout="row" layout-align="start center">
+              <md-icon md-font-set="material-icons md-dark">verified_user</md-icon>
+              <h3 class="list-item-text">Validaciones</h3>
+            </div>
+            <span flex></span>
+            <div layout="column">
+              <md-icon md-font-set="material-icons md-dark">{{ surgery.preop_valid ? 'thumb_up' : 'thumb_down' }}</md-icon>
+              <p class="md-caption">Estudios pre-operatorios</p>
+            </div>
+            <span flex="5"></span>
+            <div layout="column">
+              <md-icon md-font-set="material-icons md-dark">{{ surgery.anesthetist_id !== null ? 'thumb_up' : 'thumb_down' }}</md-icon>
+              <p class="md-caption">Anestesista</p>
+            </div>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-3-line md-long-text" ng-if="surgery.meds_to_drop.length > 0" ng-click="null">
+          <div class="md-list-item-text">
+            <div layout="row" layout-align="start center" flex>
+              <md-icon md-font-set="material-icons md-dark">local_pharmacy</md-icon>
+              <h3 style="margin-left: 16px">Medicamentos a suspender</h3>
+              <span flex></span>
+            </div>
+            <div layout="row">
+              <ul style="margin-top: 16px" flex>
+                <li ng-repeat="item in surgery.meds_to_drop" ng-if="$even">{{ item }}</li>
+              </ul>
+              <ul style="margin-top: 16px" flex>
+                <li ng-repeat="item in surgery.meds_to_drop" ng-if="$odd">{{ item }}</li>
+              </ul>
+            </div>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-hide="surgery.gos === null" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark">directions_walk</md-icon>
+            <h3 class="list-item-text">Glasgow Outcome Score</h3>
+            <span flex></span>
+            <h3>{{ surgery.gos }}</h3>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line" ng-hide="surgery.cod === null" ng-click="null">
+          <div class="md-list-item-text" layout="row">
+            <md-icon md-font-set="material-icons md-dark">airline_seat_flat</md-icon>
+            <h3 class="list-item-text">Causa de muerte</h3>
+            <span flex></span>
+            <h3>{{ surgery.cod ? 'Causa neurológica' : 'Causa no neurológica' }}</h3>
+          </div>
+        </md-list-item>
+
+        <md-subheader class="md-no-sticky">Comentarios</md-subheader>
+        <md-list-item class="md-3-line md-long-text" ng-class="listKlasses.comments" ng-repeat="comment in comments">
+          <div class="md-list-item-text">
+            <div layout="row" layout-align="start center" flex>
+              <ng-avatar string="{{ comment.user.name + ' ' + comment.user.last }}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
+              <div style="margin-left: 16px" layout="column">
+                <h3>{{ comment.user.last + ', ' + comment.user.name }}</h3>
+                <h4>{{ comment.moment.getDate() + '/' + (comment.moment.getMonth() + 1) + '/' + comment.moment.getFullYear() }}</h4>
+              </div>
+              <span flex></span>
+              <md-button class="md-icon-button" aria-label="Add med" ng-if="me.id === comment.user_id" ng-click="deleteComment($index)">
+                <md-icon md-font-set="material-icons md-dark">delete</md-icon>
+              </md-button>
+            </div>
+            <p style="margin-top: 16px; margin-bottom: 8px">{{ comment.content }}</p>
+            <md-divider ng-hide="$last"></md-divider>
+          </div>
+        </md-list-item>
+
+        <md-subheader class="md-no-sticky">
+          <div layout="row" layout-align="start end" flex>
+            <md-input-container class="md-block" flex>
+              <label>Escribe un comentario</label>
+              <textarea ng-model="newComment" md-maxlength="256" rows="2" md-select-on-focus></textarea>
+            </md-input-container>
+            <span flex="5"></span>
+            <md-button class="md-primary" ng-click="commentClick()">Comentar</md-button>
+          </div>
+        </md-subheader>
+      </md-list>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-content ng-if="editing">
+    <div class="md-dialog-content">
+      <form name="surgeryInput" ng-cloak>
+        <md-subheader class="md-no-sticky">Paciente</md-subheader>
+
+        <md-autocomplete flex required
+            md-input-name="patient"
+            md-input-minlength="2"
+            md-input-maxlength="70"
+            md-selected-item="surgery.patient"
+            md-selected-item-change="patientChange()"
+            md-search-text="patientSearchText"
+            md-items="patient in patientQuerySearch(patientSearchText)"
+            md-item-text="patient.last + ', ' + patient.name"
+            md-require-match
+            md-floating-label="Paciente">
+          <md-item-template>
+            <span md-highlight-text="patientSearchText">{{patient.last + ', ' + patient.name}}</span>
+          </md-item-template>
+          <div ng-messages="surgeryInput.patient.$error" ng-if="surgeryInput.patient.$touched">
+            <div ng-message="required">La cirugía debe estar asociada a un paciente</div>
+            <div ng-message="md-require-match">Por favor ingrese un paciente previamente registrado</div>
+            <div ng-message="minlength">Ese nombre es demasiado corto</div>
+            <div ng-message="maxlength">Ese nombre es demasiado largo</div>
+          </div>
+        </md-autocomplete>
+
+        <md-subheader class="md-no-sticky">General</md-subheader>
+
+        <div layout="row" flex>
+          <md-input-container>
+            <label>Fecha</label>
+            <md-datepicker ng-model="surgery.scheduled" md-max-date="surgery.patient.date_of_death"></md-datepicker>
+          </md-input-container>
+
+          <span flex="5"></span>
+
+          <md-autocomplete flex required
+              md-input-name="type"
+              md-input-minlength="2"
+              md-input-maxlength="64"
+              md-selected-item="surgery.type"
+              md-search-text="surgeryTypeSearchText"
+              md-items="item in surgeryQuerySearch(surgeryTypeSearchText)"
+              md-item-text="item"
+              md-floating-label="Cirugía">
+            <md-item-template>
+              <span md-highlight-text="surgeryTypeSearchText">{{item}}</span>
+            </md-item-template>
+            <div ng-messages="surgeryInput.type.$error" ng-if="surgeryInput.type.$touched">
+              <div ng-message="required">Debe ingresar un nombre para la cirugía</div>
+              <div ng-message="minlength">Ese nombre es demasiado corto</div>
+              <div ng-message="maxlength">Ese nombre es demasiado largo</div>
+            </div>
+          </md-autocomplete>
+
+          <span flex="5"></span>
+
+          <md-autocomplete flex required
+              md-input-name="pathology"
+              md-input-minlength="2"
+              md-input-maxlength="64"
+              md-selected-item="surgery.pathology"
+              md-search-text="pathologySearchText"
+              md-items="item in pathologyQuerySearch(pathologySearchText)"
+              md-item-text="item"
+              md-floating-label="Patología">
+            <md-item-template>
+              <span md-highlight-text="pathologySearchText">{{item}}</span>
+            </md-item-template>
+            <div ng-messages="surgeryInput.pathology.$error" ng-if="surgeryInput.pathology.$touched">
+              <div ng-message="required">Debe ingresar un nombre para la patología</div>
+              <div ng-message="minlength">Ese nombre es demasiado corto</div>
+              <div ng-message="maxlength">Ese nombre es demasiado largo</div>
+            </div>
+          </md-autocomplete>
+        </div>
+
+        <div layout="row">
+          <md-input-container class="md-block" flex>
+            <label>Cirujano</label>
+            <md-select ng-model="surgery.surgeon_id" required>
+              <md-option ng-repeat="surgeon in surgeons" ng-value="surgeon.id">
+                {{surgeon.last + ', ' + surgeon.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-align="start center">
+          <label>Estudios pre-operatorios satisfactorios</label>
+          <span flex></span>
+          <md-switch ng-model="surgery.preop_valid" aria-label="preop_valid"></md-switch>
+        </div>
+
+        <md-list flex>
+          <md-subheader class="md-no-sticky">
+            <div layout="row" layout-align="center center">
+              <label>Medicamentos a suspender</label>
+              <span flex></span>
+              <md-button class="md-icon-button" aria-label="Add med" ng-if="surgery.meds_to_drop.length < 8" ng-click="addMedToDrop()">
+                <md-icon md-font-set="material-icons md-dark">add_circle</md-icon>
+              </md-button>
+            </div>
+          </md-subheader>
+          <md-list-item class="md-2-line" ng-class="listKlasses.meds_to_drop" ng-repeat="item in surgery.meds_to_drop track by $index" flex>
+            <div class="md-list-item-text" layout="row" layout-align="center center" flex>
+              <md-input-container class="md-block" flex>
+                <label>Medicamento {{ $index + 1 }}</label>
+                <input type="text" ng-model="surgery.meds_to_drop[$index]" md-maxlength="32" required>
+              </md-input-container>
+
+              <span flex></span>
+
+              <md-button class="md-icon-button" aria-label="Remove med" ng-click="removeMedToDrop($index)">
+                <md-icon md-font-set="material-icons md-dark">remove_circle</md-icon>
+              </md-button>
+            </div>
+          </md-list-item>
+        </md-list>
+
+        <div ng-if="surgery.done">
+          <md-subheader class="md-no-sticky">Alta</md-subheader>
+
+          <md-input-container class="md-block" flex>
+            <label>Glasgow Outcome Score</label>
+            <input type="number" min="1" max="5" ng-model="surgery.gos" ng-disabled="surgery.cod !== null">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex>
+            <label>Causa de muerte</label>
+            <md-select ng-model="surgery.cod" ng-disabled="surgery.gos !== null">
+              <md-option ng-value="null"><em>Vivo</em></md-option>
+              <md-option ng-value="true" ng-disabled="$index === 1">Neurológica</md-option>
+              <md-option ng-value="false" ng-disabled="$index === 1">No neurológica</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row" ng-if="editing">
+    <span flex></span>
+    <md-button class="md-primary" ng-click="cancelClick()">Cancelar</md-button>
+    <md-button class="md-primary" ng-click="saveClick()">Guardar</md-button>
+  </md-dialog-actions>
+</md-dialog>

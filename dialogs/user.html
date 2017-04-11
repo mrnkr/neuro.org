@@ -1,0 +1,48 @@
+<md-dialog aria-label="Patient data" flex="65">
+  <md-toolbar class="md-hue-2 md-whiteframe-4dp">
+    <div class="md-tool-bar-tools" style="margin-left: 16px">
+      <h4 class="md-title">Editando usuario</h4>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <form ng-cloak>
+          <div layout="row" class="md-block" flex>
+            <md-input-container class="md-block" flex>
+              <label>Nombre</label>
+              <input ng-model="user.name" md-maxlength="35" required>
+            </md-input-container>
+
+            <span flex="5"></span>
+
+            <md-input-container class="md-block" flex>
+              <label>Apellido</label>
+              <input ng-model="user.last" md-maxlength="35" required>
+            </md-input-container>
+          </div>
+
+          <md-input-container class="md-block" flex>
+            <label>Email</label>
+            <input ng-model="user.email" type="email" required>
+          </md-input-container>
+
+          <md-radio-group ng-model="user.type" layout="row" layout-align="space-around">
+            <md-radio-button value="anesthetist"> Anestesista </md-radio-button>
+            <md-radio-button value="surgeon"> Cirujano </md-radio-button>
+          </md-radio-group>
+
+          <div layout="row" layout-align="space-around center">
+            <label>Administrador</label>
+            <md-switch ng-model="user.admin" ng-disabled="user.type === 'anesthetist'" aria-label="Admin toggle"></md-switch>
+          </div>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button class="md-primary" ng-click="cancelClick()">Cancelar</md-button>
+    <md-button class="md-primary" ng-click="saveClick()">Guardar</md-button>
+  </md-dialog-actions>
+</md-dialog>

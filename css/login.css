@@ -1,0 +1,23 @@
+/**
+* Few css tweaks to make login screen perfect
+* position the loading animation correctly in the middle of the window and hiding the scroll bar
+*/
+
+.login md-progress-circular {
+  position: relative;
+  top: -140px;
+}
+
+.reset md-progress-circular {
+  position: relative;
+  top: -200px;
+}
+
+.recover md-progress-circular {
+  position: relative;
+  top: -110px;
+}
+
+::-webkit-scrollbar { /* QUESTA ROBA E MAGNIFICA!!! */
+  display: none;
+}

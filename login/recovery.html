@@ -1,0 +1,119 @@
+<html lang="es-UY" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Neuro.ORG</title>
+
+  <!-- Material Fonts -->
+  <link rel="stylesheet" href="../bower_components/roboto-fontface/css/roboto/roboto-fontface.css">
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="../bower_components/angular-material/angular-material.min.js"></script>
+
+  <!-- Angular Avatar -->
+  <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="../bower_components/angular-avatar/dist/angular-avatar.min.js"></script>
+
+  <!-- Material Icons -->
+  <link href="../bower_components/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <!-- Animations -->
+  <link rel="stylesheet" href="../bower_components/animate.css/animate.min.css">
+
+  <!-- Chart.js & angular-chart.js -->
+  <script src="../bower_components/chart.js/dist/Chart.min.js"></script>
+  <script src="../bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+  <!-- Forge -->
+  <script src="../bower_components/forge/dist/forge.min.js"></script>
+
+  <!-- Password entropy -->
+  <script src="../libs/entropy.min.js"></script>
+
+  <!-- Moment.js -->
+  <script src="../bower_components/moment/min/moment.min.js"></script>
+
+  <script>
+    require('electron-cookies');
+  </script>
+
+  <!-- Socket.io -->
+  <script src="../node_modules/socket.io-client/dist/socket.io.min.js"></script>
+
+  <!-- My own stylesheet -->
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/hints.css">
+</head>
+<body ng-app="myApp" ng-controller="recoCtrl" class="recover" ng-cloak>
+  <!-- Toolbar -->
+  <md-toolbar class="md-tall">
+    <div layout="row" style="padding: 8px; -webkit-app-region: drag">
+      <span flex></span>
+
+      <md-button class="md-icon-button" style="-webkit-app-region: no-drag" ng-click="closeClick()">
+        <md-icon md-font-set="material-icons md-dark">close</md-icon>
+      </md-button>
+    </div>
+
+    <span flex=></span>
+
+    <h2 class="md-toolbar-tools">
+      <span class="md-flex md-display-1">Recuperación de contraseña</span>
+    </h2>
+  </md-toolbar>
+
+  <div layout="column" flex>
+    <form name="recoForm" ng-class="cardContentClass">
+      <div layout="row">
+        <span flex="10"></span>
+
+        <div style="margin-top: 20px" layout="column" flex="80">
+          <md-input-container>
+            <label>Email</label>
+            <input name="username"
+                   type="email"
+                   ng-model="username"
+                   my-enter="requestClick()"
+                   required>
+
+            <div ng-messages="recoForm.username.$error">
+              <div ng-message="required" class="md-caption">Escriba su email</div>
+            </div>
+          </md-input-container>
+
+          <!-- Recaptcha -->
+
+          <div layout="row" style="margin-top: 20px">
+            <span flex></span>
+            <md-button class="md-raised md-primary"
+                       ng-disabled="!username"
+                       ng-click="requestClick()">Solicitar código</md-button>
+          </div>
+        </div>
+
+        <span flex="10"></span>
+      </div>
+    </form>
+
+    <div layout="row" ng-if="loading" ng-class="cardLoadingClass" layout-align="space-around"> <!-- Loading -->
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+  </div>
+
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript" src="../angular/app.js"></script>
+  <script type="text/javascript" src="../angular/login.js"></script>
+  <!--<script type="text/javascript" src="../electron/menu.js"></script>-->
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+/**
+* css tweaks used throughout the whole interface
+*/
+
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+.material md-toolbar md-icon.md-default-theme {
+  color: white;
+}
+
+.material .main-toolbar {
+  position: fixed;
+}
+
+.material md-card {
+  max-height: none !important;
+  margin-bottom: 20px;
+}
+
+.material md-card md-toolbar {
+  background-color: white !important;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.material md-card md-toolbar form {
+  position: relative;
+  top: 30px;
+}
+
+.material md-menu-content {
+  max-height: none !important;
+  overflow-y: auto !important;
+}
+
+.sidenav-header {
+  padding-left: 18px;
+  padding-top: 18px;
+  padding-bottom: 5px;
+  background-image: url('../img/wall.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.user-pic {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+
+.font-dark {
+  color: rgba(0, 0, 0, 0.70) !important;
+}
+
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.move-up {
+  position: relative;
+  top: 55px;
+  z-index: 10;
+}
+
+.move-down {
+  position: relative;
+  top: 30px;
+}
+
+.chartContainerHorizontal {
+  width: 100%;
+}
+
+.chartContainerVertical {
+  width: 30%;
+}
+
+.lineContainerVertical {
+  width: 70%;
+}
+
+.section-title {
+  margin-bottom: 20px;
+}
+
+.list-item-text {
+  position: relative;
+  left: 16px;
+}
+
+md-list {
+  overflow: hidden;
+}
+
+md-toast {
+  position: fixed !important;
+}
+
+code {
+  background-color: #eaeaea !important;
+  color: #106cc9 !important;
+  font-family: inherit;
+  padding: 2px;
+}
+
+::-webkit-scrollbar { /* QUESTA ROBA E MAGNIFICA!!! - Hides the scrollbar but does not disable its functionality */
+  display: none;
+}
+
+/* Animations */
+
+.main-list-start.ng-enter {
+  animation: fadeInDown 200ms;
+}
+
+/*.main-list-ready.ng-enter {
+  animation: fadeInLeft 200ms;
+}*/
+
+.main-list-start.ng-enter-stagger {
+  animation-delay: 100ms;
+  -webkit-animation-delay: 100ms;
+
+  /* override to make sure it's not inherited from other styles */
+  animation-duration: 0ms;
+  -webkit-animation-duration: 0ms ;
+}
+
+/*.main-list-ready.ng-move {
+  -webkit-transition:all linear 200ms;
+  transition:all linear 200ms;
+  opacity:0;
+  max-height:0;
+}
+
+.main-list-ready.ng-move.ng-move-active {
+  opacity: 1;
+  max-height: none;
+}
+
+.main-list-ready.ng-leave {
+  animation: fadeOutRight 200ms;
+}*/
+
+.meds-to-drop.ng-enter {
+  animation: fadeInDown 200ms;
+}
+
+.meds-to-drop.ng-leave {
+  animation: fadeOutUp 200ms;
+}
+
+.comment.ng-enter {
+  animation: fadeInUp 200ms;
+}
+
+.comment.ng-leave {
+  animation: fadeOut 200ms;
+}

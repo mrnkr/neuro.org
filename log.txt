@@ -1,0 +1,65 @@
+Logs del sistema
+PiTBY | Vaca, Joselito | Ha actualizado el paciente de CI: 37532901 Nombre: Souza, Iliana
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+PiTBY | Vaca, Joselito | Ha actualizado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+PiTBY | Vaca, Joselito | Ha eliminado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 37532901 con ID: nYS1m
+PiTBY | Vaca, Joselito | Ha comentado en la cirugia de ID: nYS1m Comentario con ID: 3
+PiTBY | Vaca, Joselito | Ha eliminado el comentario de ID: 3 de la cirugia con ID: nYS1m
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 37532901 con ID: nYS1m
+PiTBY | Vaca, Joselito | Ha eliminado una cirugia al paciente de CI: 37532901 con ID: nYS1m
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 37532901 Nombre: Souza, Iliana
+PiTBY | Vaca, Joselito | Ha actualizado el paciente de CI: 37532901 Nombre: Souza, Iliana
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 21152903 Nombre: Bernardeschi, Federico
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha comentado en la cirugia de ID: 0CLOV Comentario con ID: 4
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha comentado en la cirugia de ID: 0CLOV Comentario con ID: 5
+PiTBY | Vaca, Joselito | Ha eliminado el comentario de ID: 5 de la cirugia con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 51157761 con ID: lmR5O
+PiTBY | Vaca, Joselito | Ha comentado en la cirugia de ID: lmR5O Comentario con ID: 6
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 37532901 con ID: 95y9O
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 37532901 con ID: T4G7V
+BnIcE | Sosa, Jose | Ha actualizado una cirugia al paciente de CI: 37532901 con ID: T4G7V
+BnIcE | Sosa, Jose | Ha actualizado una cirugia al paciente de CI: 37532901 con ID: 95y9O
+BnIcE | Sosa, Jose | Ha actualizado una cirugia al paciente de CI: 51157761 con ID: lmR5O
+BnIcE | Sosa, Jose | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: 8diS0
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: K1MqQ
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: tY3vZ
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: K1MqQ
+PiTBY | Vaca, Joselito | Ha eliminado una cirugia al paciente de CI: 21152903 con ID: tY3vZ
+PiTBY | Vaca, Joselito | Ha eliminado una cirugia al paciente de CI: 21152903 con ID: K1MqQ
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: LTEEa
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: EHeDh
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: LTEEa
+PiTBY | Vaca, Joselito | Ha eliminado una cirugia al paciente de CI: 21152903 con ID: EHeDh
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 17213979 Nombre: Nicoli, Edgar
+PiTBY | Vaca, Joselito | Ha eliminado el paciente de CI: 17213979 Nombre: Nicoli, Edgar
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 17213979 Nombre: Nicoli, Edgar
+PiTBY | Vaca, Joselito | Ha eliminado el paciente de CI: 17213979 Nombre: Nicoli, Edgar
+PiTBY | Vaca, Joselito | Ha ingresado el paciente de CI: 17213979 Nombre: Nicoli, Edgar
+PiTBY | Vaca, Joselito | Ha actualizado una cirugia al paciente de CI: 21152903 con ID: 0CLOV
+PiTBY | Vaca, Joselito | Ha registrado una cirugia al paciente de CI: 21152903 con ID: WCLxO
+PiTBY | Vaca, Joselito | Ha actualizado el paciente de CI: 37532901 Nombre: Souza, Iliana
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 19997653 con ID: 4gukN
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 41239876 con ID: cgjga
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 19997653 con ID: 4gukN
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 19997653 con ID: 4gukN
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 6222990 Nombre: Hoiffer, Humberto
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 6222990 Nombre: Hoiffer, Humberto
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 57776663 Nombre: Juarez, Doldana
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 57776663 Nombre: Juarez, Doldana
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 6222990 Nombre: Hoiffer, Humberto
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 57776663 Nombre: Juarez, Doldana
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 36665438 con ID: 0WDux

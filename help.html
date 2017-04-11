@@ -1,0 +1,307 @@
+<md-card class="move-up" layout="column">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h1 class="md-title">Ayuda</h1>
+
+      <span flex></span>
+    </div>
+  </md-toolbar>
+
+  <md-divider></md-divider>
+
+  <md-card-content>
+    <md-subheader class="md-no-sticky section-title">Pacientes</md-subheader>
+
+    <h2 class="md-subhead">Ver ficha de un paciente</h2>
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de pacientes.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en el borde o el ícono de la celda del paciente deseado.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Adaptar la lista de pacientes a sus necesidades</h2>
+    <ol>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> en la zona superior derecha de la hoja en que aparece la lista.</li>
+      <li class="md-body-1">Seleccionar el criterio de división deseado o el criterio de orden deseado y marque si quiere o no ver los pacientes fallecidos.</li>
+      <li class="md-body-1">Su selección será aplicada en el acto.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Buscar un paciente</h2>
+
+    <h2 class="md-body-2">- NOTA -</h2>
+    <p class="md-caption">Al realizar una búsqueda de pacientes, el sistema comparará lo que usted ingrese con algo como: "Apellido, Nombre", por ende, si usted desea puede ingresar el nombre o el apellido solos en caso que fuera suficiente para su caso de uso.</p>
+    <p class="md-caption">En caso contrario, es decir, si usted necesita ingresar nombre y apellido deberá ser respetando dicho formato.</p>
+
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de pacientes.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">search</md-icon> a la izquierda de <md-icon md-font-set="material-icons md-dark">more_vert</md-icon>.</li>
+      <li class="md-body-1">Ingresar el nombre del paciente que desea buscar. La lista se actualizará automáticamente a medida que usted escriba.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Ingreso de un paciente</h2>
+
+    <ol>
+      <li class="md-body-1"><md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-button aria-label="menu" class="md-fab md-accent md-mini" ng-click="null"><md-icon md-font-set="material-icons">person_add</md-icon></md-button>. El mismo es solo visible para usuarios <code>administradores</code>.</li>
+      <li class="md-body-1">Ingresar los datos que se piden del paciente. Aquellos marcados con <span md-colors="{color: 'pink'}">*</span> son obligatorios.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Edición de pacientes</h2>
+
+    <ol>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> sobre el ícono del paciente en la lista o el borde de la celda correspondiente.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> que está al lado de <md-icon md-font-set="material-icons md-dark">close</md-icon>.</li>
+      <li class="md-body-1">Seleccionar la opción "Editar".</li>
+      <li class="md-body-1">Modificar los datos que desee.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar</span>.</li>
+      <li class="md-body-1">¡Listo! Si desea deshacer el cambio que hizo, haga <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro que aparece en la zona inferior derecha de su pantalla</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Eliminar pacientes</h2>
+
+    <h3 class="md-body-2">- NOTA -</h3>
+    <p class="md-caption">Es por un motivo que esta y todas las eliminaciones (excepto por la de un comentario propio) están solo disponibles para administradores.</p>
+    <p class="md-caption">Eliminar un paciente resultará en la eliminación de todas las cirugías asociadas. Eliminar una cirugía elimina todos sus comentarios también.</p>
+
+    <ol>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> del paciente en la lista. Solo está visible para usuarios <code>administradores</code>.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en la opción "Eliminar".</li>
+      <li class="md-body-1">Si desea deshacer la acción, haga <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro que hay en la zona inferior derecha de su pantalla</span>.</li>
+    </ol>
+  </md-card-content>
+
+  <md-card-content>
+    <md-subheader class="md-no-sticky section-title">Cirugías</md-subheader>
+
+    <h2 class="md-subhead">Ver datos de una cirugía</h2>
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de cirugías.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en el borde de la celda o en el ícono correspondiente a la cirugía deseada.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Adaptar la lista de cirugías a sus necesidades</h2>
+    <ol>
+      <li class="md-body-1">Una vez en la lista de cirugías hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> (esquina superior derecha de la hoja).</li>
+      <li class="md-body-1">Seleccionar en la lista de opciones el criterio de división, el de orden y desde qué momento desea ver cirugías.</li>
+      <li class="md-body-1">La lista se actualizará automáticamente a medida que usted cambie esas opciones.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Buscar una cirugía</h2>
+
+    <h2 class="md-body-2">- NOTA -</h2>
+    <p class="md-caption">Vale aclarar que esta búsqueda es más versátil que la de pacientes. Los nombres se ingresan teniendo en cuenta las mismas consideraciones
+    que cuando se ingresa aquel de un paciente, no hay cambios en ese aspecto, el cambio es poder buscar según múltiples criterios a la vez.</p>
+    <p class="md-caption">El orden de los parámetros a buscar no es relevante, las mayúsculas tampoco, lo único que importa es que los distintos parámetros estén
+    divididos por un '-'.</p>
+    <p class="md-caption">Por ejemplo, una búsqueda válida podría ser: 'vaca, joselito - 27/2/2009 - meningioma'. De ver antes los resultados deseados, puede quedar
+    así: 'vaca, jo - 27/2 - menin'.</p>
+
+    <ol>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">search</md-icon>.</li>
+      <li class="md-body-1">Ingresar lo que está buscando. Pueden ser nombre de paciente, fecha en formato D/M/AAAA, patología y/o tipo de cirugía.</li>
+      <li class="md-body-1">La lista se irá actualizando a medida que usted escriba.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Imprimir la lista</h2>
+
+    <h2 class="md-body-2">- NOTA -</h2>
+    <p class="md-caption">Se imprimirá la lista con los resultados de la búsqueda y filtrados del modo que usted haya seleccionado.</p>
+
+    <ol>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">print</md-icon> entre <md-icon md-font-set="material-icons md-dark">search</md-icon> y <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> de la hoja.</li>
+      <li class="md-body-1">Seleccionar si desea imprimir a PDF o papel.</li>
+    </ol>
+
+    <div layout="row" flex>
+      <div layout="column" flex="50">
+        <h2 class="md-body-2" style="text-align: center">Papel</h2>
+
+        <ol>
+          <li class="md-body-1">Configure la impresión en el diálogo estándar que se mostrará.</li>
+          <li class="md-body-1">Haga <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en imprimir.</li>
+          <li class="md-body-1">¡Listo!</li>
+        </ol>
+      </div>
+
+      <div layout="column" flex="50">
+        <h2 class="md-body-2" style="text-align: center">PDF</h2>
+
+        <ol>
+          <li class="md-body-1">Ingrese dónde quiere guardar el archivo (se mostrará un dialogo estándar para eso).</li>
+          <li class="md-body-1">Haga <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en imprimir.</li>
+          <li class="md-body-1">¡Listo!</li>
+        </ol>
+      </div>
+    </div>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Ingresar una cirugía</h2>
+
+    <h2 class="md-body-2">- NOTA -</h2>
+    <p class="md-caption">Una cirugía sin fecha puede existir. Aparecerá al inicio de la lista de cirugías sin realizar al ordenar por fecha.</p>
+
+    <ol>
+      <li class="md-body-1">Verificar que el paciente esté ingresado previamente.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-button aria-label="menu" class="md-fab md-accent md-mini" ng-click="null"><md-icon md-font-set="material-icons">person_add</md-icon></md-button>. El mismo es solo visible para cirujanos.</li>
+      <li class="md-body-1">Ingresar los datos pertientes. Los datos obligatorios están marcados por un <span md-colors="{color: 'pink'}">*</span>.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Comentar una cirugía</h2>
+
+    <h2 class="md-body-2">- ¿QUÉ ES UN COMENTARIO ACÁ? -</h2>
+    <p class="md-caption">Hay infinidad de cosas que uno puede querer registrar y es esfuerzo innecesario poner un campo para cada cosa, llena de elementos innecesarios una interfaz que busca ser minimalista.</p>
+    <p class="md-caption">Para solucionar esto se tomaron los datos más importantes y más repetitivos de procedimiento en procedimiento y se les dió un campo especial, para todos los demás están los comentarios (no master card).</p>
+
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de cirugías.</li>
+      <li class="md-body-1">Individuar la cirugía deseada y hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en su ícono o en el borde de la celda correspondiente.</li>
+      <li class="md-body-1">Escribir el comentario deseado en el campo de texto de la zona inferior del diálogo de la cirugía.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">comentar</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Determinar oportunidad</h2>
+
+    <h3 class="md-body-2">- NOTA -</h3>
+    <p class="md-caption">Dentro del programa se le llama 'Dar visto bueno'. SOLO PUEDE SER HECHO POR USUARIOS ANESTESISTAS.</p>
+
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de cirugías.</li>
+      <li class="md-body-1">Individuar la cirugía deseada y hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en su ícono o en el borde de la celda correspondiente.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> que está a la izquierda de <md-icon md-font-set="material-icons md-dark">close</md-icon>.</li>
+      <li class="md-body-1">Si usted es anestecista verá solamente la opción 'Dar visto bueno'. Hága <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> ahí.</li>
+      <li class="md-body-1">Podrá deshacer esto haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">DESHACER</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro que aparecerá en la zona inferior derecha de su pantalla</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Editar una cirugía</h2>
+
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de cirugías.</li>
+      <li class="md-body-1">Individuar la cirugía deseada y hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en su ícono o en el borde de la celda correspondiente.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> que está a la izquierda de <md-icon md-font-set="material-icons md-dark">close</md-icon>.</li>
+      <li class="md-body-1">Si usted es cirujano verá la opción "Editar". Hágale <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon>.</li>
+      <li class="md-body-1">Cambie los datos deseados.</li>
+      <li class="md-body-1">Haga <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar</span>.</li>
+      <li class="md-body-1">Podrá deshacer los cambios haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">DESHACER</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro que aparecerá en la zona inferior derecha de su pantalla</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Eliminar cirugías</h2>
+
+    <h3 class="md-body-2">- NOTA -</h3>
+    <p class="md-caption">Eliminaciones son algo que solo pueden hacer los administradores. En el caso de una cirugía arrastran la eliminación de sus comentarios.</p>
+
+    <ol>
+      <li class="md-body-1">Ingresar a la lista de cirugías.</li>
+      <li class="md-body-1">Individuar la cirugía a eliminar.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> propio de la cirugía. A la derecha de la celda si es administrador, en caso contrario no se ve.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en la opción "Eliminar".</li>
+      <li class="md-body-1">Puede deshacer la opción haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro de abajo a la derecha</span>.</li>
+    </ol>
+  </md-card-content>
+
+  <md-card-content>
+    <md-subheader class="md-no-sticky section-title">Usuarios</md-subheader>
+
+    <h2 class="md-subhead">Registro de un nuevo usuario</h2>
+    <ol>
+      <li class="md-body-1">Acceder a la lista de usuarios.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-button aria-label="menu" class="md-fab md-accent md-mini" ng-click="null"><md-icon md-font-set="material-icons">person_add</md-icon></md-button> que solo está visible para <code>administradores</code>.</li>
+      <li class="md-body-1">Ingresar los datos. Todos son obligatorios.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar<span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Desactivar un usuario</h2>
+
+    <h2 class="md-body-2">- ¿Y ESTO QUÉ ES? -</h2>
+    <p class="md-caption">Eliminar un usuario implica eliminar toda huella que haya dejado en el sistema, todos sus pacientes, procedimientos, comentarios...</p>
+    <p class="md-caption">En fin, completamente contraproducente en caso que lo único que se desee sea que el usuario no pueda iniciar sesión en el futuro.</p>
+    <p class="md-caption">Para esto se puede desactivar un usuario. Siguen existiendo todos sus datos del mismo modo que anteriormente pero no puede iniciar sesión.</p>
+
+    <ol>
+      <li class="md-body-1">Acceder a la lista de usuarios.</li>
+      <li class="md-body-1">Individuar el usuario a descativar.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> de la celda correspondiente al usuario deseado.</li>
+      <li class="md-body-1">Seleccionar la opción "Desactivar".</li>
+      <li class="md-body-1">¡Listo! Podrá deshacer el cambio haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro de abajo a la derecha de su pantalla</span> o buscando en el mismo lugar del botón de desactivar un botón para reactivar el usuario.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Eliminar un usuario</h2>
+
+    <ol>
+      <li class="md-body-1">Acceder a la lista de usuarios.</li>
+      <li class="md-body-1">Individuar el usuario a eliminar.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons md-dark">more_vert</md-icon> de la celda correspondiente al usuario deseado.</li>
+      <li class="md-body-1">Seleccionar la opción "Eliminar".</li>
+      <li class="md-body-1">¡Listo! Se puede deshacer la eliminación haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro que aparecerá en la zona inferior derecha de su pantalla</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Cambiar mi contraseña</h2>
+
+    <h3 class="md-body-2">- NOTA -</h3>
+    <p class="md-caption">La contraseña de un usuario es enteramente controlada por el dueño del mismo. Cuando se crea un usuario no tiene contraseña, la debe poner el mismo usuario.</p>
+
+    <ol>
+      <li class="md-body-1">Entrar al menú de la aplicación a través de <md-icon md-font-set="material-icons">menu</md-icon>.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons font-dark">arrow_drop_down</md-icon> en la zona superior, la que tiene información de usuario. Esto desbloqueará las opciones de usuario.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons" md-menu-origin>vpn_key</md-icon> <span class="md-body-2">Cambiar contraseña</span>.</li>
+      <li class="md-body-1">Ingresar los datos necesarios.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar</span>.</li>
+      <li class="md-body-1">¡Listo! Puede deshacer el cambio haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro de abajo a la derecha</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Cambiar mi email</h2>
+
+    <ol>
+      <li class="md-body-1">Entrar al menú de la aplicación a través de <md-icon md-font-set="material-icons">menu</md-icon>.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons font-dark">arrow_drop_down</md-icon> en la zona superior, la que tiene información de usuario. Esto desbloqueará las opciones de usuario.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons" md-menu-origin>email</md-icon> <span class="md-body-2">Cambiar email</span>.</li>
+      <li class="md-body-1">Ingresar los datos necesarios.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-primary">guardar</span>.</li>
+      <li class="md-body-1">¡Listo! Puede deshacer el cambio haciendo <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <span class="md-button md-accent">deshacer</span> en <span md-colors="{color: 'pink'}" ng-click="showDemoToast()">el cuadro de abajo a la derecha</span>.</li>
+    </ol>
+
+    <md-divider></md-divider>
+
+    <h2 class="md-subhead">Cerrar sesión</h2>
+
+    <ol>
+      <li class="md-body-1">Entrar al menú de la aplicación a través de <md-icon md-font-set="material-icons">menu</md-icon>.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons font-dark">arrow_drop_down</md-icon> en la zona superior, la que tiene información de usuario. Esto desbloqueará las opciones de usuario.</li>
+      <li class="md-body-1">Hacer <md-icon md-font-set="material-icons md-dark" md-menu-origin>mouse</md-icon> o <md-icon md-font-set="material-icons md-dark" md-menu-origin>touch_app</md-icon> en <md-icon md-font-set="material-icons" md-menu-origin>lock</md-icon> <span class="md-body-2">Cerrar sesión</span>.</li>
+      <li class="md-body-1">Confirme su desición.</li>
+      <li class="md-body-1">¡Listo! El programa lo llevará a la pantalla de inicio de sesión.</li>
+    </ol>
+  </md-card-content>
+</md-card>
