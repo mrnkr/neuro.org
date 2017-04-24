@@ -5,7 +5,7 @@ const vigenere  =     require('../libs/vigenere.js')
 
 /* Make MySQL Connection Pool */
 
-let jsonServerInfo = fs.readFileSync(process.resourcesPath + '/data/server-info.json', {encoding: 'utf8'})
+/*let jsonServerInfo = fs.readFileSync(process.resourcesPath + '/data/server-info.json', {encoding: 'utf8'})
 let serverInfo = JSON.parse(jsonServerInfo)
 
 let pool    =    mysql.createPool({
@@ -15,16 +15,16 @@ let pool    =    mysql.createPool({
   database          :   'neuro',
   dateStrings       :   false,
   debug             :   false
-})
+})*/
 
-/*let pool    =    mysql.createPool({
-  host              :   '192.168.1.5',
+let pool    =    mysql.createPool({
+  host              :   '192.168.56.101',
   user              :   'mrnkr',
   password          :   'patata2',
   database          :   'neuro',
   dateStrings       :   false,
   debug             :   false
-})*/
+})
 
 let runQuery = function (query, args, callback) {
     pool.getConnection(function (err, connection) {
@@ -43,7 +43,7 @@ let runQuery = function (query, args, callback) {
         })
 
         connection.on('error', function(err) {
-            console.log('unexplainable error')
+            console.log(err)
             if (callback !== undefined && callback !== null)
               callback(null)
             return
@@ -141,21 +141,14 @@ module.exports = {
     })
   },
   getUserList: function (callback) {
-    let query = 'select id, name, last, email, active, ' +
-                'if((select count(*) from surgeon as srg where srg.id=usr.id) > 0, "surgeon", "anesthetist") as type, ' +
-                'ifnull((select admin from surgeon as srg where srg.id=usr.id), false) as admin from user as usr order by last, name'
+    let query = 'select * from user_list'
 
     runQuery(query, null, function (res) {
-      for (let i = 0; i < res.length; i++) {
-        res[i].admin = res[i].admin === 1 ? true : false
-        res[i].active = res[i].active === 1 ? true : false
-      }
-
       callback(res)
     })
   },
   getSurgeonList: function (callback) {
-    let query = 'select usr.id, usr.name, usr.last from user as usr where (select count(*) from surgeon as srg where srg.id = usr.id) > 0'
+    let query = 'select * from user_list as usr where (select count(*) from surgeon as srg where srg.id = usr.id) > 0'
 
     runQuery(query, null, function (res) {
       callback(res)
@@ -298,10 +291,7 @@ module.exports = {
     })
   },
   getPatientList: function (callback) {
-    let query = 'select id, name, last, birthdate, first, background, ' +
-                '(select scheduled from surgery where patient_id = pat.id order by isnull(scheduled), scheduled desc limit 1) as last_op_date, ' +
-                'ifnull((select scheduled from surgery where cod is not null and patient_id = pat.id), null) as date_of_death, surgeon_id ' +
-                'from patient as pat order by last, name'
+    let query = 'select * from patient_list'
 
     runQuery(query, null, function (res) {
       callback(res)
@@ -325,6 +315,7 @@ module.exports = {
       meds_to_drop: surgery.meds_to_drop,
       gos: surgery.gos,
       cod: surgery.cod,
+      done: surgery.done,
       patient_id: surgery.patient_id,
       surgeon_id: surgery.surgeon_id,
       anesthetist_id: surgery.anesthetist_id
@@ -348,6 +339,7 @@ module.exports = {
         meds_to_drop: surgery.meds_to_drop,
         gos: surgery.gos,
         cod: surgery.cod,
+        done: surgery.done,
         patient_id: surgery.patient_id,
         surgeon_id: surgery.surgeon_id,
         anesthetist_id: surgery.anesthetist_id
@@ -382,10 +374,10 @@ module.exports = {
     let query, args
 
     if (patient !== null) {
-      query = 'select id, scheduled, type, pathology, preop_valid, meds_to_drop, gos, cod, patient_id, surgeon_id, anesthetist_id from surgery where ? order by isnull(scheduled), scheduled'
+      query = 'select * from surgery_list where ?'
       args = {patient_id: patient.id}
     } else {
-      query = 'select id, scheduled, type, pathology, preop_valid, meds_to_drop, gos, cod, patient_id, surgeon_id, anesthetist_id from surgery order by isnull(scheduled), scheduled'
+      query = 'select * from surgery_list'
     }
 
     runQuery(query, args, function (res) {
@@ -456,7 +448,7 @@ module.exports = {
     * surgery has to be an object with AT LEAST surgery_id
     */
 
-    let query = 'select id, moment, content, user_id, surgery_id from comment where ? order by id'
+    let query = 'select * from comment_list where ?'
     let args = {surgery_id: surgery.id}
 
     runQuery(query, args, function (res) {
@@ -466,12 +458,12 @@ module.exports = {
 
   // Statistics
   getWorkload: function (callback) {
-    let query = 'select month(scheduled) as month, count(*) as workload from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() group by month(scheduled)'
+    let query = 'select month(scheduled) as month, count(*) as workload from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() and done = true group by month(scheduled)'
 
     runQuery(query, null, function (res) {
       let retVal = [res]
 
-      query = 'select month(scheduled) as month, count(*) as workload from surgery where scheduled between date_sub(date_sub(curdate(), interval 1 year), interval 6 month) and date_sub(curdate(), interval 1 year) group by month(scheduled)'
+      query = 'select month(scheduled) as month, count(*) as workload from surgery where scheduled between date_sub(date_sub(curdate(), interval 1 year), interval 6 month) and date_sub(curdate(), interval 1 year) and done = true group by month(scheduled)'
 
       runQuery(query, null, function (nextRes) {
         retVal.push(nextRes)
@@ -480,14 +472,14 @@ module.exports = {
     })
   },
   getSuccess: function (callback) {
-    let query = "select if(isnull(cod), 'Éxito', 'Fracaso') as title, count(*) as qty from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() group by title"
+    let query = "select if(isnull(cod), 'Éxito', 'Fracaso') as title, count(*) as qty from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() and done = true group by title"
 
     runQuery(query, null, function (res) {
       callback(res)
     })
   },
   getPathologyData: function (callback) {
-    let query = 'select pathology, count(*) as qty from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() group by pathology order by pathology'
+    let query = 'select pathology, count(*) as qty from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() and done = true group by pathology order by pathology'
 
     runQuery(query, null, function (res) {
       callback(res)

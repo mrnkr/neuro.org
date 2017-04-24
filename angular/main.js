@@ -7,7 +7,7 @@ myApp.directive('start', function () {
   }
 })
 
-let mainCtrl =  function ($scope, $mdDialog, socket, dialogComm) {
+let mainCtrl =  function ($scope, $mdDialog, socket) {
   /**
   * The section can only be shown when completely ready - fully loaded
   * individualReady contains boolean variables that will only be true when each corresponding element is ready to be shown

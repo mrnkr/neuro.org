@@ -63,3 +63,132 @@ HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 57776663 Nombre: Juare
 HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 6222990 Nombre: Hoiffer, Humberto
 HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 57776663 Nombre: Juarez, Doldana
 HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 36665438 con ID: 0WDux
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: fKuNi Comentario con ID: 11
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 12
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 13
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 13 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 12 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 14
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 14 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 15
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 15 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 16
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 16 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 17
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 17 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 18
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 18 de la cirugia con ID: 5OwiW
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 19
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 19997653 con ID: 4gukN
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 41239876 con ID: cgjga
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 36542190 con ID: fKuNi
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 83452135 con ID: 9T0b5
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 36542348 con ID: 2s99S
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 57776663 con ID: QhrK1
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 36665438 con ID: 9tnuq
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 36665438 con ID: 0WDux
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 09872317 con ID: 1iIKX
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: SOV9b Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: 5OwiW Comentario con ID: 20
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 6222990 con ID: Uz9Hy
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 20673213 con ID: kQYcU
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 20673213 con ID: kQYcU
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 20673213 con ID: kQYcU
+aTvWH | Alvariza, Ana | Ha actualizado una cirugia al paciente de CI: 20673213 con ID: kQYcU
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 20673213 con ID: kQYcU
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 20673213 con ID: kQYcU
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 09872317 con ID: 4RU7U
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 09872317 con ID: 4RU7U
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 09872317 con ID: 4RU7U
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 09872317 con ID: 4RU7U
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 09872317 con ID: 4RU7U
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 36665438 con ID: nZRXn
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 36665438 con ID: nZRXn
+aTvWH | Alvariza, Ana | Ha actualizado una cirugia al paciente de CI: 36665438 con ID: nZRXn
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: NPIv6
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+aTvWH | Alvariza, Ana | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: UieBI Comentario con ID: 21
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: UieBI Comentario con ID: 22
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: nZRXn Comentario con ID: 23
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: nZRXn Comentario con ID: 24
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 24 de la cirugia con ID: nZRXn
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: HLg82 Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollos, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollo, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollo, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha marcado como hecha una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollo, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollos, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollo, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 29874564 con ID: UieBI
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollos, Byron
+HFeYt | Nicoli, Edgar | Ha actualizado el paciente de CI: 29874564 Nombre: Arrollo, Byron
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 36542348 Nombre: Mendez, John
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: 51157761 Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: 1y3jO Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 51157761 Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: FMJBi Comentario con ID: 25
+HFeYt | Nicoli, Edgar | Ha eliminado el comentario de ID: 25 de la cirugia con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha comentado en la cirugia de ID: FMJBi Comentario con ID: 26
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: baLcv
+HFeYt | Nicoli, Edgar | Ha actualizado una cirugia al paciente de CI: 06785435 con ID: FMJBi
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 06785435 con ID: baLcv
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: kYK4S
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: 0wAUb
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 06785435 con ID: 0wAUb
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: K8XPB
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 06785435 con ID: K8XPB
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: a9B1y
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 06785435 con ID: a9B1y
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: xuY4D
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 06785435 con ID: xuY4D
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 06785435 con ID: LoeAD
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 06785435 con ID: LoeAD
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: Dqbs0 Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: Wfccu Nombre: Nicoli, Alvaro
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 57776663 Nombre: Juarez, Doldana
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 41239876 Nombre: Silva, Nathaniel
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha ingresado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 92348761 con ID: JlQmi
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 92348761 con ID: gQmjU
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 92348761 con ID: gQmjU
+HFeYt | Nicoli, Edgar | Ha registrado una cirugia al paciente de CI: 92348761 con ID: 4b6pT
+HFeYt | Nicoli, Edgar | Ha eliminado una cirugia al paciente de CI: 92348761 con ID: 4b6pT
+HFeYt | Nicoli, Edgar | Ha eliminado el paciente de CI: 92348761 Nombre: Rodriguez, Olaf
+HFeYt | Nicoli, Edgar | Ha eliminado el usuario de ID: DM4ta Nombre: Nicoli, Alvaro

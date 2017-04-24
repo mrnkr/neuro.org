@@ -60,7 +60,8 @@ let prepareEnvironment = function() {
       break
   }
 
-  //mainWindow.openDevTools()
+  mainWindow.openDevTools()
+
   loginWindow.loadURL('file://' + __dirname + '/../login/login.html')
 
   loginWindow.once('ready-to-show', function () {
@@ -97,6 +98,10 @@ app.on('activate', function () {
   }
 })
 
+/**
+* Graphical login response
+*/
+
 ipcMain.on('login', function (event) {
   mainWindow.loadURL('file://' + __dirname + '/../index.html')
 
@@ -117,19 +122,87 @@ ipcMain.on('logout', function (event) {
   }, 1000)
 })
 
+/**
+* End graphical login response
+*/
+
+/**
+* Modal windows
+*/
+
+let modals = []
+
+// Types
+const patient = 0
+const surgery = 1
+const user = 2
+const usermod = 3
+
+ipcMain.on('open-modal', function (event, type, content) {
+  // If there already are open modals
+  if (modals.length > 0)
+    modals[modals.length - 1].hide() // Hide the one visible
+
+  // Create a new modal
+  modals.push(new BrowserWindow({
+    parent: mainWindow,
+    modal: true,
+    show: false
+  }))
+
+  // Load the right dialog
+  switch (type) {
+    case patient:
+      modals[modals.length - 1].loadURL('file://' + __dirname + '/../dialogs/patient.html')
+      break
+    case surgery:
+      modals[modals.length - 1].loadURL('file://' + __dirname + '/../dialogs/surgery.html')
+      break
+    case user:
+      modals[modals.length - 1].loadURL('file://' + __dirname + '/../dialogs/user.html')
+      break
+    case usermod:
+      modals[modals.length - 1].loadURL('file://' + __dirname + '/../dialogs/user-edit.html')
+  }
+
+  // Show the new modal gracefully after passing the necessary data to it
+  modals[modals.length - 1].once('ready-to-show', () => {
+    modals[modals.length - 1].webContents.send('data-to-show', content)
+    modals[modals.length - 1].show()
+  })
+})
+
+ipcMain.on('deliver-data-to-papa', function (event, object) {
+  if (modals.length > 1) { // If more than one modals exist
+    modals[modals.length - 2].webContents.send('send-data-to-daddy', object) // Send the object to the parent modal
+  } else {
+    mainWindow.webContents.send('send-data-to-daddy', object) // If not send it to the mainWindow
+  }
+})
+
+ipcMain.on('close-modal', function (event) {
+  // Close the last modal on the list
+  modals[modals.length - 1].close()
+  modals.splice(modals.length - 1, 1)
+
+  // If there is another one show it
+  if (modals.length > 0)
+    modals[modals.length - 1].show()
+})
+
+/**
+* End modals
+*/
+
+/**
+* Print service events
+*/
+
 ipcMain.on('print', function (event, content) {
   printWindow.webContents.send('print', content)
 })
 
-ipcMain.on('printToPdf', function (event, content) {
-  printWindow.webContents.send('printToPdf', content)
-})
-
 ipcMain.on('readyToPrint', (event) => {
-  printWindow.webContents.print({silent: false, printBackground: true}) // silent false means it will show the default print dialog for the os
-})
-
-ipcMain.on('readyToPrintToPdf', (event) => {
   printWindow.webContents.printToPDF({marginsType: 0, // marginsType = 0 means default margins
                                       pageSize: 'A4',
                                       printBackground: true,
@@ -147,3 +220,7 @@ ipcMain.on('readyToPrintToPdf', (event) => {
                                                                })
                                       })
 })
+
+/**
+* End print service
+*/

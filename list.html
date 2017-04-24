@@ -30,25 +30,9 @@
       <!-- End search bar -->
 
       <!-- Print Menu -->
-      <md-menu md-position-mode="target-right target" ng-if="ttl === 'Cirugías'">
-        <md-button aria-label="Open print menu" class="md-icon-button" ng-click="$mdMenu.open()">
-          <md-icon md-font-set="material-icons md-dark">print</md-icon>
-        </md-button>
-
-        <md-menu-content width="2" >
-          <md-menu-item>
-            <md-menu-item>
-              <md-button ng-click="print(false)"><md-icon md-font-set="material-icons md-dark">picture_as_pdf</md-icon> PDF</md-button>
-            </md-menu-item>
-          </md-menu-item>
-
-          <md-menu-item>
-            <md-menu-item>
-              <md-button ng-click="print(true)"><md-icon md-font-set="material-icons md-dark">library_books</md-icon> Papel</md-button>
-            </md-menu-item>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
+      <md-button aria-label="Print trigger" class="md-icon-button" ng-if="ttl === 'Cirugías'" ng-click="print()">
+        <md-icon md-font-set="material-icons md-dark">print</md-icon>
+      </md-button>
 
       <md-menu md-position-mode="target-right target" ng-if="ttl !== 'Usuarios'">
         <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
@@ -57,11 +41,11 @@
 
         <md-menu-content width="4">
           <div ng-if="ttl === 'Pacientes'">
-            <md-menu-item>
+            <md-menu-item ng-if="me.type === 'surgeon'">
               <label>Dividir según</label>
             </md-menu-item>
 
-            <md-radio-group ng-model="options.divideBy">
+            <md-radio-group ng-if="me.type === 'surgeon'" ng-model="options.divideBy">
 
               <md-menu-item>
                 <md-button><md-radio-button value="operatedOrNot" class="md-primary">Si fueron o no operados</md-radio-button></md-button>
@@ -111,21 +95,17 @@
           </div>
 
           <div ng-if="ttl === 'Cirugías'">
-            <md-menu-item>
-              <label>Dividir según</label>
+            <md-menu-item ng-if="me.type === 'surgeon'">
+              <label>Filtrar según</label>
             </md-menu-item>
 
-            <md-radio-group ng-model="options.divideBy">
+            <md-menu-item ng-if="me.type === 'surgeon'">
+              <md-button><md-checkbox ng-model="options.mineOnly" aria-label="Mine only">Solo cirugías mías</md-checkbox></md-button>
+            </md-menu-item>
 
-              <md-menu-item>
-                <md-button><md-radio-button value="doneOrNot" class="md-primary">Si fueron o no realizadas</md-radio-button></md-button>
-              </md-menu-item>
-
-              <md-menu-item>
-                <md-button><md-radio-button value="mineOrNot" class="md-primary">Si son mías o no</md-radio-button></md-button>
-              </md-menu-item>
-
-            </md-radio-group>
+            <md-menu-item ng-if="me.type === 'surgeon'">
+              <md-button><md-checkbox ng-model="options.validOnly" aria-label="Valid only">Solo cirugías válidas</md-checkbox></md-button>
+            </md-menu-item>
 
             <md-divider></md-divider>
 
@@ -193,7 +173,7 @@
 
     <md-list ng-hide="empty" flex>
       <div id="user-list" ng-if="ttl === 'Usuarios'">
-        <md-list-item class="md-3-line" ng-if="ttl === 'Usuarios'" ng-class="listKlass" ng-repeat="item in users | search: ctrl.searchText: ttl | orderBy: item.last" ng-click="null">
+        <md-list-item class="md-3-line" ng-if="ttl === 'Usuarios'" ng-class="listKlass" ng-repeat="item in items | search: ctrl.searchText: ttl | orderBy: item.last" ng-click="null">
           <ng-avatar string="{{item.name + ' ' + item.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
           <div class="md-list-item-text list-item-text" layout="column">
             <h3>{{ item.last + ', ' + item.name }}</h3>
@@ -232,8 +212,8 @@
         <md-list-item ng-if="ttl === 'Pacientes'"
                       class="md-3-line"
                       ng-class="listKlass"
-                      ng-repeat="patient in patients | myFilter: options.divideBy: true: me | deadlyFilter: options.showDead | search: ctrl.searchText: ttl | orderBy: options.orderBy"
-                      ng-click="showDialog($event, false, patient)">
+                      ng-repeat="patient in items | myFilter: options.divideBy: true: me | deadlyFilter: options.showDead | search: ctrl.searchText: ttl | orderBy: options.orderBy"
+                      ng-click="showDialog(patient)">
           <ng-avatar string="{{patient.name + ' ' + patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
           <div class="md-list-item-text list-item-text" layout="column">
             <h3>{{ patient.last + ', ' + patient.name }} {{ patient.date_of_death !== null ? '(X)' : '' }}</h3>
@@ -265,8 +245,8 @@
         <md-list-item ng-if="ttl === 'Pacientes'"
                       class="md-3-line"
                       ng-class="listKlass"
-                      ng-repeat="patient in patients | myFilter: options.divideBy: false: me | deadlyFilter: options.showDead | search: ctrl.searchText: ttl | orderBy: options.orderBy"
-                      ng-click="showDialog($event, false, patient)">
+                      ng-repeat="patient in items | myFilter: options.divideBy: false: me | deadlyFilter: options.showDead | search: ctrl.searchText: ttl | orderBy: options.orderBy"
+                      ng-click="showDialog(patient)">
           <ng-avatar string="{{patient.name + ' ' + patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
           <div class="md-list-item-text list-item-text" layout="column">
             <h3>{{ patient.last + ', ' + patient.name }} {{ patient.date_of_death !== null ? '(X)' : '' }}</h3>
@@ -307,8 +287,8 @@
         <md-list-item ng-if="ttl === 'Cirugías' && options.showUndone"
                       class="md-3-line"
                       ng-class="listKlass"
-                      ng-repeat="surgery in surgeries | myFilter: options.divideBy: true: me | search: ctrl.searchText: ttl | orderBy: options.orderBy === '-scheduled' ? 'scheduled' : options.orderBy"
-                      ng-click="showDialog($event, false, surgery)">
+                      ng-repeat="surgery in items | myFilter: options.divideBy: true: me | mineOrValid: options.mineOnly: options.validOnly: me | search: ctrl.searchText: ttl | orderBy: options.orderBy === '-scheduled' ? 'scheduled' : options.orderBy"
+                      ng-click="showDialog(surgery)">
           <ng-avatar string="{{surgery.patient.name + ' ' + surgery.patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
           <div class="md-list-item-text list-item-text" layout="column">
             <h3>{{ surgery.type }} - {{ surgery.pathology }}</h3>
@@ -317,6 +297,10 @@
           </div>
 
           <span flex></span>
+
+          <md-icon md-font-set="material-icons md-dark" style="margin-right: 8px" ng-if="!surgery.done && surgery.preop_valid !== null && surgery.anesthetist !== null">thumb_up</md-icon>
+          <md-icon md-font-set="material-icons md-dark" style="margin-right: 8px" ng-if="!surgery.done && surgery.alert">error</md-icon>
+          <md-icon md-font-set="material-icons md-dark" style="margin-right: 8px" ng-if="surgery.done">check_circle</md-icon>
 
           <md-menu ng-if="me.type === 'surgeon'" md-position-mode="target-right target">
             <md-button class="md-icon-button" aria-label="More" ng-click="$mdMenu.open()">
@@ -347,8 +331,8 @@
         <md-list-item ng-if="ttl === 'Cirugías' && options.showDone"
                       class="md-3-line"
                       ng-class="listKlass"
-                      ng-repeat="surgery in surgeries | myFilter: options.divideBy: false: me | timeyFilter: options.seeFrom | search: ctrl.searchText: ttl | orderBy: options.orderBy"
-                      ng-click="showDialog($event, false, surgery)">
+                      ng-repeat="surgery in items | myFilter: options.divideBy: false: me | timeyFilter: options.seeFrom | mineOrValid: options.mineOnly: options.validOnly: me | search: ctrl.searchText: ttl | orderBy: options.orderBy"
+                      ng-click="showDialog(surgery)">
           <ng-avatar string="{{surgery.patient.name + ' ' + surgery.patient.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>
           <div class="md-list-item-text list-item-text" layout="column">
             <h3>{{ surgery.type }} - {{ surgery.pathology }}</h3>

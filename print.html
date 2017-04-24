@@ -38,21 +38,13 @@
 </head>
 <body>
     <script>
-        const ipcRenderer = require("electron").ipcRenderer
+        const ipcRenderer = require('electron').ipcRenderer
 
-        ipcRenderer.on("print", (event, content) => {
+        ipcRenderer.on('print', (event, content) => {
             document.body.innerHTML = content
 
             setTimeout(function () {
               ipcRenderer.send('readyToPrint')
-            }, 500)
-        })
-
-        ipcRenderer.on("printToPdf", (event, content) => {
-            document.body.innerHTML = content
-
-            setTimeout(function () {
-              ipcRenderer.send('readyToPrintToPdf')
             }, 500)
         })
     </script>

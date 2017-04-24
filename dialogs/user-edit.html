@@ -1,5 +1,61 @@
-<md-dialog aria-label="Edit user data" flex="65">
-  <md-toolbar class="md-hue-2 md-whiteframe-4dp">
+<html lang="es-UY" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Neuro.ORG</title>
+
+  <!-- Material Fonts -->
+  <link rel="stylesheet" href="../bower_components/roboto-fontface/css/roboto/roboto-fontface.css">
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="../bower_components/angular-material/angular-material.min.js"></script>
+
+  <!-- Angular Avatar -->
+  <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="../bower_components/angular-avatar/dist/angular-avatar.min.js"></script>
+
+  <!-- Material Icons -->
+  <link href="../bower_components/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <!-- Animations -->
+  <link rel="stylesheet" href="../bower_components/animate.css/animate.min.css">
+
+  <!-- Forge -->
+  <script src="../bower_components/forge/dist/forge.min.js"></script>
+
+  <!-- Entropy -->
+  <script src="../libs/entropy.min.js"></script>
+
+  <!-- Chart.js & angular-chart.js -->
+  <script src="../bower_components/chart.js/dist/Chart.min.js"></script>
+  <script src="../bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+  <!-- Moment.js -->
+  <script src="../bower_components/moment/min/moment.min.js"></script>
+
+  <script>
+    require('electron-cookies');
+  </script>
+
+  <!-- Socket.io -->
+  <script src="../node_modules/socket.io-client/dist/socket.io.min.js"></script>
+
+  <!-- My own stylesheets -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/hints.css">
+</head>
+<body ng-app="myApp" ng-controller="userModDialogCtrl" ng-cloak>
+  <md-toolbar class="md-hue-2 md-whiteframe-4dp dialog-toolbar">
     <div class="md-tool-bar-tools" ng-if="email" style="margin-left: 16px">
       <h4 class="md-title">Cambiar email</h4>
     </div>
@@ -9,7 +65,7 @@
     </div>
   </md-toolbar>
 
-  <md-dialog-content>
+  <div class="dialog-content" style="margin-top: 80px">
     <div class="md-dialog-content" ng-if="email">
       <form name="changeMail" layout="column" ng-cloak>
         <md-input-container flex>
@@ -62,11 +118,17 @@
         </md-input-container>
       </form>
     </div>
-  </md-dialog-content>
+  </div>
 
-  <md-dialog-actions layout="row">
+  <div layout="row" class="dialog-footer">
     <span flex></span>
     <md-button class="md-primary" ng-click="cancelClick()">Cancelar</md-button>
     <md-button class="md-primary" ng-click="saveClick()">Guardar</md-button>
-  </md-dialog-actions>
-</md-dialog>
+  </div>
+
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript" src="../angular/app.js"></script>
+  <script type="text/javascript" src="../angular/dialog-ctrl/user-mod-dialog.js"></script>
+  <!--<script type="text/javascript" src="electron/menu.js"></script>-->
+</body>
+</html>

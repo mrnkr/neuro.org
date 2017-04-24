@@ -1,6 +1,63 @@
-<md-dialog aria-label="Patient data" flex="65">
-  <md-toolbar class="md-hue-2 md-whiteframe-4dp">
+<html lang="es-UY" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Neuro.ORG</title>
+
+  <!-- Material Fonts -->
+  <link rel="stylesheet" href="../bower_components/roboto-fontface/css/roboto/roboto-fontface.css">
+
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="../bower_components/angular-material/angular-material.min.js"></script>
+
+  <!-- Angular Avatar -->
+  <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="../bower_components/angular-avatar/dist/angular-avatar.min.js"></script>
+
+  <!-- Material Icons -->
+  <link href="../bower_components/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <!-- Animations -->
+  <link rel="stylesheet" href="../bower_components/animate.css/animate.min.css">
+
+  <!-- Forge -->
+  <script src="../bower_components/forge/dist/forge.min.js"></script>
+
+  <!-- Entropy -->
+  <script src="../libs/entropy.min.js"></script>
+
+  <!-- Chart.js & angular-chart.js -->
+  <script src="../bower_components/chart.js/dist/Chart.min.js"></script>
+  <script src="../bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+  <!-- Moment.js -->
+  <script src="../bower_components/moment/min/moment.min.js"></script>
+
+  <script>
+    require('electron-cookies');
+  </script>
+
+  <!-- Socket.io -->
+  <script src="../node_modules/socket.io-client/dist/socket.io.min.js"></script>
+
+  <!-- My own stylesheets -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/hints.css">
+</head>
+<body ng-app="myApp" ng-controller="surgeryDialogCtrl" ng-cloak>
+  <md-toolbar class="md-hue-2 md-whiteframe-4dp dialog-toolbar">
     <div class="md-toolbar-tools" ng-hide="editing">
+      <md-icon md-font-set="material-icons md-dark" style="margin-right: 8px" ng-if="surgery.done">check_circle</md-icon>
       <h4 class="md-title">{{ surgery.type }} - {{ surgery.patient.last + ', ' + surgery.patient.name }}</h4>
 
       <span flex></span>
@@ -11,8 +68,11 @@
         </md-button>
 
         <md-menu-content width="2">
-          <md-menu-item ng-if="me.type === 'anesthetist'">
-            <md-button style="-webkit-app-region: no-drag" ng-click="anesthetistOk()"><span md-menu-align-target>Dar visto bueno</span></md-button>
+          <md-menu-item>
+            <md-button style="-webkit-app-region: no-drag" ng-click="markAsReady()"><span md-menu-align-target>Dar visto bueno</span></md-button>
+          </md-menu-item>
+          <md-menu-item ng-if="me.type === 'surgeon'">
+            <md-button style="-webkit-app-region: no-drag" ng-click="markAsDone()"><span md-menu-align-target>Marcar como lista</span></md-button>
           </md-menu-item>
           <md-menu-item ng-if="me.type === 'surgeon'">
             <md-button style="-webkit-app-region: no-drag" ng-click="editClick()"><span md-menu-align-target>Editar</span></md-button>
@@ -30,7 +90,7 @@
     </div>
   </md-toolbar>
 
-  <md-dialog-content ng-hide="editing">
+  <div ng-hide="editing" class="dialog-content" style="margin-top: 45px">
     <div class="md-dialog-content">
       <md-list flex>
         <md-subheader class="md-no-sticky">Información</md-subheader>
@@ -66,12 +126,12 @@
             </div>
             <span flex></span>
             <div layout="column">
-              <md-icon md-font-set="material-icons md-dark">{{ surgery.preop_valid ? 'thumb_up' : 'thumb_down' }}</md-icon>
+              <md-icon md-font-set="material-icons md-dark">{{ surgery.preop_valid !== null ? 'thumb_up' : 'thumb_down' }}</md-icon>
               <p class="md-caption">Estudios pre-operatorios</p>
             </div>
             <span flex="5"></span>
             <div layout="column">
-              <md-icon md-font-set="material-icons md-dark">{{ surgery.anesthetist_id !== null ? 'thumb_up' : 'thumb_down' }}</md-icon>
+              <md-icon md-font-set="material-icons md-dark">{{ surgery.anesthetist !== null ? 'thumb_up' : 'thumb_down' }}</md-icon>
               <p class="md-caption">Anestesista</p>
             </div>
           </div>
@@ -120,7 +180,7 @@
                 <h4>{{ comment.moment.getDate() + '/' + (comment.moment.getMonth() + 1) + '/' + comment.moment.getFullYear() }}</h4>
               </div>
               <span flex></span>
-              <md-button class="md-icon-button" aria-label="Add med" ng-if="me.id === comment.user_id" ng-click="deleteComment($index)">
+              <md-button class="md-icon-button" aria-label="remove comment" ng-if="me.id === comment.user.id" ng-click="deleteComment($index)">
                 <md-icon md-font-set="material-icons md-dark">delete</md-icon>
               </md-button>
             </div>
@@ -141,9 +201,9 @@
         </md-subheader>
       </md-list>
     </div>
-  </md-dialog-content>
+  </div>
 
-  <md-dialog-content ng-if="editing">
+  <div ng-if="editing" class="dialog-content" style="margin-top: 80px">
     <div class="md-dialog-content">
       <form name="surgeryInput" ng-cloak>
         <md-subheader class="md-no-sticky">Paciente</md-subheader>
@@ -153,7 +213,6 @@
             md-input-minlength="2"
             md-input-maxlength="70"
             md-selected-item="surgery.patient"
-            md-selected-item-change="patientChange()"
             md-search-text="patientSearchText"
             md-items="patient in patientQuerySearch(patientSearchText)"
             md-item-text="patient.last + ', ' + patient.name"
@@ -224,18 +283,12 @@
         <div layout="row">
           <md-input-container class="md-block" flex>
             <label>Cirujano</label>
-            <md-select ng-model="surgery.surgeon_id" required>
-              <md-option ng-repeat="surgeon in surgeons" ng-value="surgeon.id">
+            <md-select ng-model="surgery.surgeon" required>
+              <md-option ng-repeat="surgeon in surgeons" ng-value="surgeon">
                 {{surgeon.last + ', ' + surgeon.name}}
               </md-option>
             </md-select>
           </md-input-container>
-        </div>
-
-        <div layout="row" layout-align="start center">
-          <label>Estudios pre-operatorios satisfactorios</label>
-          <span flex></span>
-          <md-switch ng-model="surgery.preop_valid" aria-label="preop_valid"></md-switch>
         </div>
 
         <md-list flex>
@@ -269,12 +322,12 @@
 
           <md-input-container class="md-block" flex>
             <label>Glasgow Outcome Score</label>
-            <input type="number" min="1" max="5" ng-model="surgery.gos" ng-disabled="surgery.cod !== null">
+            <input type="number" min="1" max="5" ng-model="surgery.gos">
           </md-input-container>
 
           <md-input-container class="md-block" flex>
             <label>Causa de muerte</label>
-            <md-select ng-model="surgery.cod" ng-disabled="surgery.gos !== null">
+            <md-select ng-model="surgery.cod" ng-disabled="surgery.gos !== 1">
               <md-option ng-value="null"><em>Vivo</em></md-option>
               <md-option ng-value="true" ng-disabled="$index === 1">Neurológica</md-option>
               <md-option ng-value="false" ng-disabled="$index === 1">No neurológica</md-option>
@@ -283,11 +336,22 @@
         </div>
       </form>
     </div>
-  </md-dialog-content>
+  </div>
 
-  <md-dialog-actions layout="row" ng-if="editing">
+  <div layout="row" ng-if="editing" class="dialog-footer">
     <span flex></span>
     <md-button class="md-primary" ng-click="cancelClick()">Cancelar</md-button>
     <md-button class="md-primary" ng-click="saveClick()">Guardar</md-button>
-  </md-dialog-actions>
-</md-dialog>
+  </div>
+
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript" src="../angular/app.js"></script>
+  <script type="text/javascript" src="../angular/dialog-ctrl/surgery-dialog.js"></script>
+  <script type="text/javascript" src="../data_model/base.js"></script>
+  <script type="text/javascript" src="../data_model/patient.js"></script>
+  <script type="text/javascript" src="../data_model/surgery.js"></script>
+  <script type="text/javascript" src="../data_model/user.js"></script>
+  <script type="text/javascript" src="../data_model/comment.js"></script>
+  <!--<script type="text/javascript" src="electron/menu.js"></script>-->
+</body>
+</html>

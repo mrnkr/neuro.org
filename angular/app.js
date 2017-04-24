@@ -1,6 +1,5 @@
 let myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ngAnimate', 'chart.js', 'ngAvatar', 'ngCookies'])
 
-
 /**
 * Controller for the body of index.html
 */
@@ -125,36 +124,6 @@ myApp.directive('compareTo', function () {
   }
 })
 
-myApp.service('dialogComm', function () {
-  /**
-  * Allows "main" controllers to communicate with dialog controllers and pass data over to them
-  * @param {object} stored - Object to transfer to the dialog
-  * @param {boolean} newSignal - Whether the dialog should allow for the creation of nw content from scratch or else should load with specific previous content
-  */
-
-  let stored
-  let newSignal = false
-
-  return {
-    sendNewSignal: function () {
-      newSignal = true
-    },
-    getNewSignal: function () {
-      return newSignal
-    },
-    sendObject: function (object) {
-      stored = object
-    },
-    getObject: function () {
-      return stored
-    },
-    clean: function () {
-      stored = undefined
-      newSignal = false
-    }
-  }
-})
-
 myApp.service('fabService', function () {
   /**
   * Allows the secondary controllers (those of the different sections) to have full control over the FAB's behavior
@@ -219,13 +188,31 @@ myApp.factory('windowCtrl', function () {
   }
 })
 
+myApp.factory('ipcRenderer', function ($rootScope) {
+  const ipcRenderer = require('electron').ipcRenderer
+
+  return {
+    on: function (eventName, callback) {
+      ipcRenderer.once(eventName, function () {
+        let args = arguments
+        $rootScope.$apply(function () {
+          callback.apply(ipcRenderer, args)
+        })
+      })
+    },
+    emit: function (eventName, ...data) {
+      ipcRenderer.send(eventName, ...data)
+    }
+  }
+})
+
 myApp.factory('socket', function ($rootScope) {
   /**
   * Returns an object that can be used to interact with the nodejs portion of the app
   * @constructor
   */
 
-  let socket = io('http://localhost:3000')
+  const socket = io('http://localhost:3000')
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {
@@ -269,38 +256,6 @@ myApp.factory('forge', function () {
   }
 })
 
-myApp.factory('print', function () {
-  /**
-  * Returns object with helper functions to start the print process
-  * @constructor
-  */
-
-  const ipcRenderer = require('electron').ipcRenderer
-
-  return {
-    printToPage: function () {
-      ipcRenderer.send('print', document.getElementById('print-content').innerHTML)
-    },
-    printToPdf: function () {
-      ipcRenderer.send('printToPdf', document.getElementById('print-content').innerHTML)
-    }
-  }
-})
-
-/*myApp.factory('notification', function () {
-  // THIS WORKS ONLY ON MAC APPARENTLY
-  const {ipcRenderer} = require('electron')
-
-  return function (title, msg) {
-      let n = new Notification(title, {
-      body: msg
-    })
-
-    // Tell the notification to show the menubar popup window on click
-    n.onclick = () => { ipcRenderer.send('show-window') }
-  }
-})*/
-
 myApp.filter('myFilter', function () {
   /**
   * Works in the patient list and the surgery list
@@ -318,16 +273,16 @@ myApp.filter('myFilter', function () {
       switch (filter) {
         case 'operatedOrNot':
           if (which) {
-            if (datediff('h', item.last_op_date, new Date()) < 0) filtered.push(item)
+            if (!item.last_op_done) filtered.push(item)
           } else {
-            if (datediff('h', item.last_op_date, new Date()) > 0) filtered.push(item)
+            if (item.last_op_done) filtered.push(item)
           }
           break
         case 'mineOrNot':
-          if (which) {
-            if (item.surgeon_id === me.id) filtered.push(item)
-          } else {
-            if (item.surgeon_id !== me.id) filtered.push(item)
+          if (which && me.type === 'surgeon') {
+            if (item.surgeon.id === me.id) filtered.push(item)
+          } else if (me.type === 'surgeon') {
+            if (item.surgeon.id !== me.id) filtered.push(item)
           }
           break
         case 'doneOrNot':
@@ -336,6 +291,39 @@ myApp.filter('myFilter', function () {
           } else {
             if (item.done) filtered.push(item)
           }
+      }
+    })
+    return filtered
+  }
+})
+
+myApp.filter('mineOrValid', function () {
+  /**
+  * Will remove surgeries that are not the logged user's and/or are not yet valid if so the user desires
+  * Filter wont work if logged user is an anesthetist
+  * @param {array} items - Items to apply the filter to
+  * @param {boolean} mineOnly - Filter and show only your surgeries
+  * @param {boolean} validOnly - Filter and show only valid surgeries
+  * @param {object} me - Logged user
+  */
+
+  return function (items, mineOnly, validOnly, me) {
+    let filtered = []
+    angular.forEach(items, function (item) {
+      if (mineOnly && validOnly && me.type === 'surgeon') {
+        if (item.surgeon.id === me.id && item.preop_valid !== null && item.anesthetist !== null) {
+          filtered.push(item)
+        }
+      } else if (mineOnly && me.type === 'surgeon') {
+        if (item.surgeon.id === me.id) {
+          filtered.push(item)
+        }
+      } else if (validOnly && me.type === 'surgeon') {
+        if (item.preop_valid !== null && item.anesthetist !== null) {
+          filtered.push(item)
+        }
+      } else {
+        filtered.push(item)
       }
     })
     return filtered

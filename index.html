@@ -80,7 +80,7 @@
     <div layout="row">
       <span flex></span>
 
-      <md-button aria-label="menu" class="md-fab md-accent move-down" ng-if="showFab" ng-click="onFabClick($event, true)">
+      <md-button aria-label="menu" class="md-fab md-accent move-down" ng-if="showFab" ng-click="onFabClick()">
         <md-icon md-font-set="material-icons">person_add</md-icon>
       </md-button>
 
@@ -108,7 +108,7 @@
       </md-toolbar>
 
       <md-content layout-padding="">
-        <md-list id="regular-menu" ng-hide="menuExpanded" flex>
+        <md-list id="regular-menu" ng-hide="userMenu === 'arrow_drop_up'" flex>
           <md-list-item lass="md-3-line" ng-click="changeSection('')">
             <md-icon md-font-set="material-icons" md-menu-origin>home</md-icon>
             <h3 class="md-body-2">Inicio</h3>
@@ -148,14 +148,14 @@
           </md-list-item></a>
         </md-list>
 
-        <md-list id="user-menu" ng-if="menuExpanded" flex>
-          <md-list-item lass="md-3-line" ng-click="editUser($event, true)">
+        <md-list id="user-menu" ng-if="userMenu === 'arrow_drop_up'" flex>
+          <md-list-item lass="md-3-line" ng-click="editUser(true)">
             <md-icon md-font-set="material-icons" md-menu-origin>email</md-icon>
             <h3 class="md-body-2">Cambiar email</h3>
             <span flex></span>
           </md-list-item>
 
-          <md-list-item lass="md-3-line" ng-click="editUser($event, false)">
+          <md-list-item lass="md-3-line" ng-click="editUser(false)">
             <md-icon md-font-set="material-icons" md-menu-origin>vpn_key</md-icon>
             <h3 class="md-body-2">Cambiar contraseña</h3>
             <span flex></span>
@@ -193,6 +193,10 @@
   <script type="text/javascript" src="angular/list.js"></script>
   <script type="text/javascript" src="angular/help.js"></script>
   <script type="text/javascript" src="angular/nav.js"></script>
+  <script type="text/javascript" src="data_model/base.js"></script>
+  <script type="text/javascript" src="data_model/patient.js"></script>
+  <script type="text/javascript" src="data_model/surgery.js"></script>
+  <script type="text/javascript" src="data_model/user.js"></script>
   <!--<script type="text/javascript" src="electron/menu.js"></script>-->
 
 </body>
