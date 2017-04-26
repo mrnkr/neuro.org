@@ -17,7 +17,7 @@ io.on('connection', function (socket) {
   /**
   * Controls that the db is up
   */
-  /*let jsonServerInfo = fs.readFileSync(process.resourcesPath + '/data/server-info.json', {encoding: 'utf8'})
+  let jsonServerInfo = fs.readFileSync(process.resourcesPath + '/data/server-info.json', {encoding: 'utf8'})
   let serverInfo = JSON.parse(jsonServerInfo)
 
   let previousState = true
@@ -26,7 +26,7 @@ io.on('connection', function (socket) {
       if (!isAlive && previousState != isAlive) socket.emit('server is dead')
       previousState = isAlive
     })
-  }, 5000)*/
+  }, 5000)
 
   // Users
 
@@ -297,7 +297,7 @@ let log = function (msg) {
 * Mail code
 */
 
-/*let jsonAuthInfo = fs.readFileSync(process.resourcesPath + '/data/auth-info.json', {encoding: 'utf8'})
+let jsonAuthInfo = fs.readFileSync(process.resourcesPath + '/data/auth-info.json', {encoding: 'utf8'})
 let authInfoNkrypted = JSON.parse(jsonAuthInfo)
 
 // create reusable transporter object using the default SMTP transport
@@ -326,4 +326,4 @@ let sendCode = function (mail, code) {
       }
       console.log('Message %s sent: %s', info.messageId, info.response);
   })
-}*/
+}

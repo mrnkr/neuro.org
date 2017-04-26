@@ -1,4 +1,4 @@
-myApp.controller('patientDialogCtrl', function ($scope, $mdToast, $cookies, $timeout, socket, ipcRenderer) {
+myApp.controller('patientDialogCtrl', function ($scope, $cookies, $timeout, toastCtrl, socket, ipcRenderer) {
   let preEditionPatient = null // Used to store the patient object before editing so as to recover it in case changes are undone
 
   $scope.me = $cookies.getObject('logged user')
@@ -102,15 +102,7 @@ myApp.controller('patientDialogCtrl', function ($scope, $mdToast, $cookies, $tim
     if (!isFormValid()) return
 
     if ($scope.canGoBackToNotEditing) { //Update patient
-      var toast = $mdToast.simple()
-        .textContent('Has editado a ' + $scope.patient.last + ', ' + $scope.patient.name)
-        .action('DESHACER')
-        .highlightAction(true)
-        .position('bottom right')
-
-      $mdToast.active = true
-
-      $mdToast.show(toast).then(function(response) {
+      toastCtrl.show('Has editado a ' + $scope.patient.last + ', ' + $scope.patient.name, function (response) {
         if ( response === 'ok' ) {
           $scope.patient = Patient.copy(preEditionPatient)
         } else {
@@ -118,8 +110,6 @@ myApp.controller('patientDialogCtrl', function ($scope, $mdToast, $cookies, $tim
 
           $scope.answer = true
         }
-
-        $mdToast.active = false
       })
     } else {
       socket.emit('new patient', $scope.patient.jsonForDatabase)
@@ -149,8 +139,8 @@ myApp.controller('patientDialogCtrl', function ($scope, $mdToast, $cookies, $tim
   * Closes the dialog when not editng - if it is defined that it should return data then it so does
   */
   $scope.closeClick = function () {
-    let delay = $mdToast.active ? 800 : 0
-    $mdToast.hide()
+    let delay = toastCtrl.active() ? 800 : 0
+    toastCtrl.hide()
 
     $timeout(function () {
       $scope.surgeries = []

@@ -150,7 +150,25 @@ myApp.service('fabService', function () {
   }
 })
 
-myApp.factory('windowCtrl', function () {
+myApp.service('forge', function () {
+  /**
+  * Allows to quickly encrypt passwords using hmac
+  * @constructor
+  * @param {string} pass - Decrypted pass
+  * @param {string} salt - Random string of chars to be used as salt by the hmac algo
+  */
+
+  return {
+    hmac: function (pass, salt) {
+      let hmac = forge.hmac.create()
+      hmac.start('sha512', salt)
+      hmac.update(pass)
+      return hmac.digest().toHex()
+    }
+  }
+})
+
+myApp.service('windowCtrl', function () {
   /**
   * Returns an object that allows the interaction with window controls such as closing them, minimizing and maximizing
   * @constructor
@@ -238,21 +256,57 @@ myApp.factory('socket', function ($rootScope) {
   }
 })
 
-myApp.factory('forge', function () {
-  /**
-  * Allows to quickly encrypt passwords using hmac
-  * @constructor
-  * @param {string} pass - Decrypted pass
-  * @param {string} salt - Random string of chars to be used as salt by the hmac algo
-  */
+myApp.factory('toastCtrl', function ($mdToast) {
+  $mdToast.active = 0
 
   return {
-    hmac: function (pass, salt) {
-      let hmac = forge.hmac.create()
-      hmac.start('sha512', salt)
-      hmac.update(pass)
-      return hmac.digest().toHex()
+    /**
+    * Shows a toast with a message and receives an action as a param
+    * @param {string} msg - Message to show
+    * @param {callback} callback - Action to perform onToastGone
+    */
+    show: function (msg, callback) {
+      let toast = $mdToast.simple()
+        .textContent(msg)
+        .action('DESHACER')
+        .highlightAction(true)
+        .position('bottom right')
+
+      $mdToast.hide()
+      $mdToast.active += 1
+
+      $mdToast.show(toast).then(function(response) {
+        callback(response)
+
+        $mdToast.active -= 1
+      })
+    },
+    /**
+    * Hides open toasts
+    */
+    hide: function () {
+      $mdToast.hide()
+    },
+    /**
+    * Checks whether a toast is open
+    * @return {boolean} - Whether there are open toasts
+    */
+    active: function () {
+      return $mdToast.active > 0 ? true : false
     }
+  }
+})
+
+myApp.factory('notification', function () {
+  const {ipcRenderer} = require('electron')
+
+  return function (title, msg) {
+      let n = new Notification(title, {
+      body: msg
+    })
+
+    // Tell the notification to show the menubar popup window on click
+    n.onclick = () => { ipcRenderer.send('show-window') }
   }
 })
 

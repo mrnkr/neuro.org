@@ -1,5 +1,5 @@
-myApp.controller('navCtrl', function ($scope, $mdDialog, $mdToast, $cookies, socket, windowCtrl, ipcRenderer) {
-  $scope.user = $cookies.getObject('logged user')
+myApp.controller('navCtrl', function ($scope, $mdDialog, $cookies, toastCtrl, socket, windowCtrl, ipcRenderer) {
+  $scope.user             =   $cookies.getObject('logged user')
   $scope.userMenu         =   'arrow_drop_down' // Icon name - determines whether the arrow to show next to user name points up or down
 
   /**
@@ -19,17 +19,14 @@ myApp.controller('navCtrl', function ($scope, $mdDialog, $mdToast, $cookies, soc
 
       ipcRenderer.on('send-data-to-daddy', function (ev, data) {
         if (data != null) {
-          let toast = $mdToast.simple()
-            .textContent('Has cambiado tu email a ' + data)
-            .action('DESHACER')
-            .highlightAction(true)
-            .position('bottom right')
+          let old = $scope.user.email
+          $scope.user.email = data
 
-          $mdToast.show(toast).then(function(response) {
-            if ( response !== 'ok' ) {
-              $scope.user.email = data
+          toastCtrl.show('Has cambiado tu email a ' + data, function (response) {
+            if ( response === 'ok' ) {
+              $scope.user.email = old
+            } else {
               $cookies.putObject('logged user', $scope.user, null)
-
               socket.emit('change user email', {id: $cookies.getObject('logged user').id, email: data})
             }
           })
@@ -40,16 +37,9 @@ myApp.controller('navCtrl', function ($scope, $mdDialog, $mdToast, $cookies, soc
 
       ipcRenderer.on('send-data-to-daddy', function (ev, data) {
         if (data != null) {
-          let toast = $mdToast.simple()
-            .textContent('Has cambiado tu contraseña')
-            .action('DESHACER')
-            .highlightAction(true)
-            .position('bottom right')
-
-          $mdToast.show(toast).then(function(response) {
-            if ( response !== 'ok' ) {
+          toastCtrl.show('Has cambiado tu contraseña', function (response) {
+            if ( response !== 'ok' )
               socket.emit('change user pass', data)
-            }
           })
         }
       })

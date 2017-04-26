@@ -5,7 +5,7 @@ const vigenere  =     require('../libs/vigenere.js')
 
 /* Make MySQL Connection Pool */
 
-/*let jsonServerInfo = fs.readFileSync(process.resourcesPath + '/data/server-info.json', {encoding: 'utf8'})
+let jsonServerInfo = fs.readFileSync(process.resourcesPath + '/data/server-info.json', {encoding: 'utf8'})
 let serverInfo = JSON.parse(jsonServerInfo)
 
 let pool    =    mysql.createPool({
@@ -15,16 +15,16 @@ let pool    =    mysql.createPool({
   database          :   'neuro',
   dateStrings       :   false,
   debug             :   false
-})*/
+})
 
-let pool    =    mysql.createPool({
+/*let pool    =    mysql.createPool({
   host              :   '192.168.56.101',
   user              :   'mrnkr',
   password          :   'patata2',
   database          :   'neuro',
   dateStrings       :   false,
   debug             :   false
-})
+})*/
 
 let runQuery = function (query, args, callback) {
     pool.getConnection(function (err, connection) {
@@ -458,12 +458,12 @@ module.exports = {
 
   // Statistics
   getWorkload: function (callback) {
-    let query = 'select month(scheduled) as month, count(*) as workload from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() and done = true group by month(scheduled)'
+    let query = 'select month(scheduled) as month, count(*) as workload from surgery where done and scheduled between date_sub(curdate(), interval 6 month) and curdate() group by month'
 
     runQuery(query, null, function (res) {
       let retVal = [res]
 
-      query = 'select month(scheduled) as month, count(*) as workload from surgery where scheduled between date_sub(date_sub(curdate(), interval 1 year), interval 6 month) and date_sub(curdate(), interval 1 year) and done = true group by month(scheduled)'
+      query = 'select month(scheduled) as month, count(*) as workload from surgery where done and scheduled between date_sub(date_sub(curdate(), interval 1 year), interval 6 month) and date_sub(curdate(), interval 1 year) group by month'
 
       runQuery(query, null, function (nextRes) {
         retVal.push(nextRes)
@@ -472,14 +472,14 @@ module.exports = {
     })
   },
   getSuccess: function (callback) {
-    let query = "select if(isnull(cod), 'Éxito', 'Fracaso') as title, count(*) as qty from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() and done = true group by title"
+    let query = "select if(isnull(cod), 'Éxito', 'Fracaso') as title, count(*) as qty from surgery where done and scheduled between date_sub(curdate(), interval 6 month) and curdate() group by title"
 
     runQuery(query, null, function (res) {
       callback(res)
     })
   },
   getPathologyData: function (callback) {
-    let query = 'select pathology, count(*) as qty from surgery where scheduled between date_sub(curdate(), interval 6 month) and curdate() and done = true group by pathology order by pathology'
+    let query = 'select pathology, count(*) as qty from surgery where done and scheduled between date_sub(curdate(), interval 6 month) and curdate() group by pathology order by pathology'
 
     runQuery(query, null, function (res) {
       callback(res)

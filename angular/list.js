@@ -9,7 +9,7 @@ myApp.directive('list', function () {
   }
 })
 
-let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, socket, ipcRenderer) {
+let listCtrl =  function ($scope, $timeout, $cookies, toastCtrl, fabService, socket, ipcRenderer, notification) {
   let loading = true // If true, socket events can be run
   $scope.me = $cookies.getObject('logged user')
 
@@ -162,11 +162,7 @@ let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, sock
           let msg = {text: ''} // Has to be an object since objects are passed as ByRef, strigs go ByVal
           database_data = Surgery.prepareSurgeryList(database_data, msg, socket)
           if (msg.text.length > 0)
-            $mdToast.show(
-              $mdToast.simple()
-                .textContent(msg.text)
-                .position('bottom right')
-            )
+            notification('Zombies!', msg.text)
           break
         case 'user list':
           database_data = User.prepareUserList(database_data)
@@ -231,13 +227,9 @@ let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, sock
       if (index != -1)
         $scope.items[index] = data
       else
-        $scope.items.push(data)
+        if ($scope.items.indexOf(data) === -1) $scope.items.push(data)
 
-      $mdToast.show(
-        $mdToast.simple()
-          .textContent('Operación exitosa!')
-          .position('bottom right')
-      )
+      notification('Éxito!', 'Operación completada con éxito')
     })
   }
 
@@ -252,15 +244,7 @@ let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, sock
     item.active = !item.active
     let msg = item.active ? 'activado' : 'desactivado'
 
-    var toast = $mdToast.simple()
-      .textContent('Se ha ' + msg + ' a ' + item.last + ', ' + item.name)
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.active = true
-
-    $mdToast.show(toast).then(function(response) {
+    toastCtrl.show('Se ha ' + msg + ' a ' + item.last + ', ' + item.name, function (response) {
       if ( response === 'ok' ) {
         item.active = !item.active
       } else {
@@ -269,8 +253,6 @@ let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, sock
         else
           socket.emit('deactivate user', item)
       }
-
-      $mdToast.active = false
     })
   }
 
@@ -297,22 +279,12 @@ let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, sock
         break
     }
 
-    let toast = $mdToast.simple()
-      .textContent(msg)
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.active = true
-
-    $mdToast.show(toast).then(function(response) {
+    toastCtrl.show(msg, function (response) {
       if ( response === 'ok' ) {
         $scope.items.splice(index, 0, item)
       } else {
         socket.emit(evt, item.jsonForDatabase)
       }
-
-      $mdToast.active = false
     })
   }
 
@@ -320,10 +292,10 @@ let listCtrl =  function ($scope, $mdToast, $timeout, $cookies, fabService, sock
   * Prepares the environment for closing
   */
   $scope.$on('$destroy', function () {
-    let delay = $mdToast.active ? 800 : 0
+    let delay = toastCtrl.active() ? 800 : 0
 
     // Make sure toast goes away before the controller is changed
-    $mdToast.hide()
+    toastCtrl.hide()
 
     $timeout(function () {
       // Save the cookies if surgeon

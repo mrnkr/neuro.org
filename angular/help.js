@@ -15,20 +15,13 @@ myApp.directive('about', function () {
   }
 })
 
-let helpCtrl = function ($scope, $mdToast, $mdDialog) {
+let helpCtrl = function ($scope, $mdDialog, toastCtrl) {
   $scope.showDemoToast = function () {
     /**
     * Shows a useless toast to show the user what a toast is
     */
 
-    let toast = $mdToast.simple()
-      .textContent('Este es el cuadro')
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.show(toast).then(function(response) {
-      // If the user clicks on the toast's button a dialog gets shown
+    toastCtrl.show('Este es el cuadro', function (response) {
       if ( response === 'ok' ) {
         $mdDialog.show(
           $mdDialog.alert()
@@ -44,6 +37,6 @@ let helpCtrl = function ($scope, $mdToast, $mdDialog) {
   }
 
   $scope.$on('$destroy', function () {
-    $mdToast.hide()
+    if (toastCtrl.active()) toastCtrl.hide()
   })
 }

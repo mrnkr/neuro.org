@@ -60,8 +60,6 @@ let prepareEnvironment = function() {
       break
   }
 
-  mainWindow.openDevTools()
-
   loginWindow.loadURL('file://' + __dirname + '/../login/login.html')
 
   loginWindow.once('ready-to-show', function () {
@@ -147,7 +145,9 @@ ipcMain.on('open-modal', function (event, type, content) {
   modals.push(new BrowserWindow({
     parent: mainWindow,
     modal: true,
-    show: false
+    show: false,
+    resizable: false,
+    frame: false
   }))
 
   // Load the right dialog

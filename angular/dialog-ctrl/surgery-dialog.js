@@ -1,4 +1,4 @@
-myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $timeout, $cookies, socket, ipcRenderer) {
+myApp.controller('surgeryDialogCtrl', function ($scope, $mdDialog, $timeout, $cookies, toastCtrl, socket, ipcRenderer) {
   let preEditionSurgery = null // Used to store the surgery object before editing so as to be able to recover it if the edition gets undone
 
   ipcRenderer.on('data-to-show', function (ev, data) {
@@ -94,23 +94,13 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
     // Save today's date as the one the studies were delivered
     $scope.surgery.preop_valid = new Date()
 
-    let toast = $mdToast.simple()
-      .textContent('Has dado el visto bueno a una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name)
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.active = true
-
-    $mdToast.show(toast).then(function(response) {
+    toastCtrl.show('Has dado el visto bueno a una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name, function (response) {
       if ( response === 'ok' ) { // If the user decides it was all a mistake undo
         $scope.surgery.preop_valid = null
       } else { // update the surgery and add the data necessary for the system to know it has been approved
         socket.emit('update surgery', $scope.surgery.jsonForDatabase)
         $scope.answer = true // Tell the system it needs to update the object outside the dialog
       }
-
-      $mdToast.active = false
     })
   }
 
@@ -123,23 +113,13 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
     // Add data about the current user, which has to be the anesthetist
     $scope.surgery.anesthetist = $cookies.getObject('logged user')
 
-    let toast = $mdToast.simple()
-      .textContent('Has dado el visto bueno a una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name)
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.active = true
-
-    $mdToast.show(toast).then(function(response) {
+    toastCtrl.show('Has dado el visto bueno a una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name, function (response) {
       if ( response === 'ok' ) { // If the user decides it was all a mistake undo
         $scope.surgery.anesthetist = null
       } else { // update the surgery and add the data necessary for the system to know it has been approved
         socket.emit('update surgery', $scope.surgery.jsonForDatabase)
         $scope.answer = true // Tell the system it needs to update the object outside the dialog
       }
-
-      $mdToast.active = false
     })
   }
 
@@ -152,15 +132,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
     if (date != null) $scope.surgery.scheduled = date
     $scope.surgery.done = true
 
-    let toast = $mdToast.simple()
-      .textContent('Has marcado como lista una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name)
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.active = true
-
-    $mdToast.show(toast).then(function(response) {
+    toastCtrl.show('Has marcado como lista una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name, function (response) {
       if ( response === 'ok' ) { // Clicked UNDO button in toast
         if (date != null) $scope.surgery.scheduled = prevDate
         $scope.surgery.done = false
@@ -168,8 +140,6 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
         socket.emit('update surgery', $scope.surgery.jsonForDatabase)
         $scope.answer = true
       }
-
-      $mdToast.active = false
     })
   }
 
@@ -179,7 +149,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
   * @param {string} what - String representing the data you are filtering
   */
   let createFilterFor = function (query, what) {
-    var lowercaseQuery = angular.lowercase(query)
+    let lowercaseQuery = angular.lowercase(query)
 
     switch (what) {
       case 'patient':
@@ -323,7 +293,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
   * @param {string} query - text to compare with the patient name
   */
   $scope.patientQuerySearch = function (query) {
-    var results = query ? $scope.patients.filter( createFilterFor(query, 'patient') ) : $scope.patients
+    let results = query ? $scope.patients.filter( createFilterFor(query, 'patient') ) : $scope.patients
     return results
   }
 
@@ -334,7 +304,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
   $scope.surgeryQuerySearch = function (query) {
     $scope.surgery.type = query
 
-    var results = query ? $scope.surgeryTypes.filter( createFilterFor(query, 'surgery') ) : $scope.surgeryTypes
+    let results = query ? $scope.surgeryTypes.filter( createFilterFor(query, 'surgery') ) : $scope.surgeryTypes
     return results
   }
 
@@ -345,7 +315,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
   $scope.pathologyQuerySearch = function (query) {
     $scope.surgery.pathology = query
 
-    var results = query ? $scope.pathologies.filter( createFilterFor(query, 'pathology') ) : $scope.pathologies
+    let results = query ? $scope.pathologies.filter( createFilterFor(query, 'pathology') ) : $scope.pathologies
     return results
   }
 
@@ -369,15 +339,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
 
     // If canGoBackToNotEditing is true then the surgery is being edited from an already existing one - not being generated
     if ($scope.canGoBackToNotEditing) {
-      let toast = $mdToast.simple()
-        .textContent('Has editado una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name)
-        .action('DESHACER')
-        .highlightAction(true)
-        .position('bottom right')
-
-      $mdToast.active = true
-
-      $mdToast.show(toast).then(function(response) {
+      toastCtrl.show('Has editado una cirugía a ' + $scope.surgery.patient.last + ', ' + $scope.surgery.patient.name, function (response) {
         if ( response === 'ok' ) { // Clicked UNDO button in toast
           $scope.surgery = Surgery.copy(preEditionSurgery)
         } else { // toast went away and UNDO wasnt clicked
@@ -385,8 +347,6 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
 
           $scope.answer = true
         }
-
-        $mdToast.active = false
       })
     } else { // The surgery is being created from scratch
       $scope.surgery.id = Surgery.makeid(ids)
@@ -418,8 +378,8 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
   * Close the dialog
   */
   $scope.closeClick = function () {
-    let delay = $mdToast.active ? 800 : 0
-    $mdToast.hide()
+    let delay = toastCtrl.active() ? 800 : 0
+    toastCtrl.hide()
 
     $timeout(function () {
       if ($scope.answer) // If the object has to be sent over to the main section
@@ -481,13 +441,7 @@ myApp.controller('surgeryDialogCtrl', function ($scope, $mdToast, $mdDialog, $ti
     let comment = $scope.comments[index]
     $scope.comments.splice(index, 1)
 
-    var toast = $mdToast.simple()
-      .textContent('Has eliminado un comentario')
-      .action('DESHACER')
-      .highlightAction(true)
-      .position('bottom right')
-
-    $mdToast.show(toast).then(function(response) {
+    toastCtrl.show('Has eliminado un comentario', function (response) {
       if (response === 'ok') { // If the UNDO button gets clicked
         $scope.comments.splice(index, 0, comment)
       } else { // If the toast disappears and the UNDO button never got clicked
