@@ -11,6 +11,7 @@ myApp.directive('about', function () {
   return {
     restrict: 'E',
     scope: {},
+    controller: aboutCtrl,
     templateUrl: 'about.html'
   }
 })
@@ -39,4 +40,10 @@ let helpCtrl = function ($scope, $mdDialog, toastCtrl) {
   $scope.$on('$destroy', function () {
     if (toastCtrl.active()) toastCtrl.hide()
   })
+}
+
+let aboutCtrl = function ($scope, openExternal) {
+  $scope.takeToLink = function (link) {
+    openExternal(link)
+  }
 }

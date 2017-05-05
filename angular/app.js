@@ -224,6 +224,14 @@ myApp.factory('ipcRenderer', function ($rootScope) {
   }
 })
 
+myApp.factory('openExternal', function () {
+  const shell = require('electron').shell
+
+  return function (url) {
+    shell.openExternal(url)
+  }
+})
+
 myApp.factory('socket', function ($rootScope) {
   /**
   * Returns an object that can be used to interact with the nodejs portion of the app
