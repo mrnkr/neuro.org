@@ -1,0 +1,7 @@
+#Dont commit .DS_Store
+/.DS_Store
+/angular/.DS_Store
+/img/.DS_Store
+/img/docs/.DS_Store
+/nodejs/.DS_Store
+/log.txt
