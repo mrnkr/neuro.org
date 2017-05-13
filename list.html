@@ -167,11 +167,11 @@
   <md-divider></md-divider>
 
   <md-card-content>
-    <div layout="row" layout-align="center center" ng-if="empty" flex>
+    <div layout="row" layout-align="center center" ng-if="items.length === 0" flex>
       <img src="img/empty.png"></img>
     </div>
 
-    <md-list ng-hide="empty" flex>
+    <md-list ng-hide="items.length === 0" flex>
       <div id="user-list" ng-if="ttl === 'Usuarios'">
         <md-list-item class="md-3-line" ng-if="ttl === 'Usuarios'" ng-class="listKlass" ng-repeat="item in items | search: ctrl.searchText: ttl | orderBy: item.last" ng-click="null">
           <ng-avatar string="{{item.name + ' ' + item.last}}" bind="true" bg-color="#3E50B4" round-shape="true"></ng-avatar>

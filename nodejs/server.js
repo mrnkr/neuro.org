@@ -276,16 +276,16 @@ http.listen(3000, function() {
   console.log('Listening on port 3000')
 })
 
+const log_file = __dirname + '/../../neuro-log.txt'
+
 let log = function (msg) {
-  if (!fs.existsSync('log.txt'))
-    fs.writeFile('log.txt', 'Logs del sistema\n', {flag: 'wx'}, function (err) {
+  if (!fs.existsSync(log_file))
+    fs.writeFile(log_file, 'Logs del sistema\n', {flag: 'wx'}, function (err) {
       if (err)
         console.log(err)
-      else
-        console.log('iupi!')
     })
 
-  fs.appendFile('log.txt', msg + '\n', function (err) {
+  fs.appendFile(log_file, msg + ' | ' + new Date().toString() + '\n', function (err) {
     if (err)
       console.log(err)
     else
@@ -312,7 +312,7 @@ let transporter = mailer.createTransport({
 let sendCode = function (mail, code) {
   // setup email data with unicode symbols
   let mailOptions = {
-      from: '"Servicio Neuro Maciel" <neuro@maciel.com>', // sender address
+      from: '"Servicio Neuro Maciel" <neuromacielapp@hotmail.com>', // sender address
       to: mail, // list of receivers
       subject: 'Recuperacion de cuenta', // Subject line
       text: 'Su codigo de recuperacion es: ' + code, // plain text body

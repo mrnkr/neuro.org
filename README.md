@@ -1,199 +1,106 @@
-Pacientes
+#Neuro.ORG
 
-Ver ficha de un paciente
-1. Ingresar a la lista de pacientes.
-2. Hacer click en el borde o el ícono de la celda del paciente deseado.
+####Project overview
 
-Adaptar la lista de pacientes a sus necesidades
-1. Hacer click en el ícono de opciones que aparece en la zona superior izquierda de la hoja en que aparece la lista.
-2. Seleccionar el criterio de división deseado o el criterio de orden deseado y marque si quiere o no ver los pacientes fallecidos.
-3. Su selección será aplicada en el acto.
+This project was made for the neurosurgery team at the Maciel Hospital in Montevideo, Uruguay.
+The goal of it was to be able to interact with patient and surgery data stored on a MySQL database with ease.
+It allows users to see a list of patients and another one of surgeries, inside which they are able to sort data in real time, input new information and search for specific past entries by means of an embedded search engine.
+A print functionality is also offered in the surgery list.
 
-Buscar un paciente
-1. Ingresar a la lista de pacientes.
-2. Hacer click en el ícono de búsqueda (la lupa) que está a la izquierda del ícono del menú.
-3. Ingresar el nombre del paciente que desea buscar. La lista se actualizará automáticamente a medida que usted escriba.
+##The database
+![DBSchema](img/docs/dbschema.png)
 
-- NOTA -
-  Al realizar una búsqueda de pacientes, el sistema comparará lo que usted ingrese con algo como: "Apellido, Nombre", por ende, si usted desea
-  puede ingresar el nombre o el apellido solos en caso que fuera suficiente para su caso de uso.
-  En caso contrario, es decir, si usted necesita ingresar nombre y apellido deberá ser respetando dicho formato.
+###Data dictionary
 
-Ingreso de un paciente
-1. Presionar el botón flotante rosado. El mismo es solo visible para usuarios administradores.
-2. Ingresar los datos que se piden del paciente. Aquellos marcados con * son obligatorios.
-3. Hacer click en guardar.
+####User
+Name|Key|Type|Description
+--- | --- | --- | -------
+id | pk | char(5) | User ID number
+name | | varchar(35) | User name
+last | | varchar(35) | User last name
+email | | varchar(254) | User email
+pass | | text | Encrypted user pass
+salt | | text | Cryptographic salt
+active | | boolean | Can the user log in?
+recovery_code | | int | Password recovery code
 
-Edición de pacientes
-1. Hacer click sobre el ícono del paciente en la lista.
-2. Hacer click en el botón de opciones que está al lado del de cerrar.
-3. Seleccionar la opción "Editar".
-4. Modificar los datos que desee.
-5. Hacer click en guardar.
-6. Si desea deshacer el cambio que hizo, haga click en deshacer en el cuadro que aparece en la zona inferior derecha de su pantalla.
+####Surgeon
+Name|Key|Type|Description
+--- | --- | --- | -------
+id | pk | char(5) | User ID number
+admin | | boolean | Is the user an admin?
 
-Eliminar pacientes
+####Anesthetist
+Name|Key|Type|Description
+--- | --- | --- | -------
+id | pk | char(5) | User ID number
 
-- NOTA -
-  Es por un motivo que esta y todas las eliminaciones (excepto por la de un comentario propio) están solo disponibles para administradores.
-  Eliminar un paciente resultará en la eliminación de todas las cirugías asociadas. Eliminar una cirugía elimina todos sus comentarios también.
+####Patient
+Name|Key|Type|Description
+--- | --- | --- | -------
+id | pk | char(8) | Patient ID number
+name | | varchar(35) | Patient name
+last | | varchar(35) | Patient last name
+birthdate | | date | Patient birthdate
+first | | date | Patient first visit
+background | | varchar(256) | Extra info on the patient
+surgeon_id | fk(surgeon) | char(5) | Surgeon in charge of patient
 
-1. Hacer click en el botón de opciones del paciente en la lista. Solo está visible para usuarios administradores.
-2. Hacer click en la opción "Eliminar".
-3. Si desea deshacer la acción, haga click en deshacer en el cuadro que hay en la zona inferior derecha de su pantalla.
+####Surgery
+Name|Key|Type|Description
+--- | --- | --- | -------
+id | pk | char(5) | Surgery ID number
+scheduled | | date | When did/will the surgery take place?
+type | | varchar(64) | Type of procedure
+pathology | | varchar(64) | What is being treated?
+preop_valid | | date | When the surgeon validated the surgery
+meds_to_drop | | varchar(256) | Meds the patient cant take pre surgery
+gos | | int | Glasgow Outcome Score
+cod | | boolean | Cause of death
+patient_id | fk(patient) | char(8) | Patient to be/who was treated
+surgeon_id | fk(surgeon) | char(5) | Surgeon in charge of surgery
+anesthetist_id | fk(anesthetist) | char(5) | Anesthetist who validated the surgery
 
-Cirugías
+####Comment
+Name|Key|Type|Description
+--- | --- | --- | -------
+id | pk | int | Comment ID number
+moment | | datetime | When the comment was stored
+content | | varchar(256) | What the user wrote
+user_id | fk(user) | char(5) | The user who commented
+surgery_id | fk(surgery) | char(5) | Surgery the comment corresponds to
 
-Ver datos de una cirugía
-1. Ingresar a la lista de cirugías.
-2. Hacer click en el borde de la celda o en el ícono correspondiente a la cirugía deseada.
+##The data model
 
-Adaptar la lista de cirugías a sus necesidades
-1. Una vez en la lista de cirugías hacer click en el botón de menú (esquina superior derecha de la hoja).
-2. Seleccionar en la lista de opciones el criterio de división, el de orden y desde qué momento desea ver cirugías.
-3. La lista se actualizará automáticamente a medida que usted cambie esas opciones.
+![Class UML](img/docs/class-uml.jpg)
 
-Buscar una cirugía
-1. Hacer click en el ícono de búsqueda (la lupa).
-2. Ingresar lo que está buscando. Pueden ser nombre de paciente, fecha en formato D/M/AAAA, patología y/o tipo de cirugía.
-3. La lista se irá actualizando a medida que usted escriba.
+##The network
 
-- NOTA -
-  Vale aclarar que esta búsqueda es más versátil que la de pacientes. Los nombres se ingresan teniendo en cuenta las mismas consideraciones
-  que cuando se ingresa aquel de un paciente, no hay cambios en ese aspecto, el cambio es poder buscar según múltiples criterios a la vez.
-  El orden de los parámetros a buscar no es relevante, las mayúsculas tampoco, lo único que importa es que los distintos parámetros estén
-  divididos por un '-'.
-  Por ejemplo, una búsqueda válida podría ser: 'vaca, joselito - 27/2/2009 - meningioma'. De ver antes los resultados deseados, puede quedar
-  así: 'vaca, jo - 27/2 - menin'.
+![Network diagram](img/docs/network.jpg)
 
-Imprimir la lista
+There needs to be a MySQL server accessible by all clients. All other operations are handled by each client on their own.
 
-- NOTA -
-  Se imprimirá la lista con los resultados de la búsqueda y filtrados del modo que usted haya seleccionado.
+##Password recovery engine
 
-1. Hacer click en el ícono de la impresora entre el de buscar y el de opciones de la hoja.
-2. Seleccionar si desea imprimir a PDF o papel.
-3.1.1. Si eligió PDF Ingrese dónde quiere guardar el archivo (se mostrará un dialogo estándar para eso).
-3.1.2. Haga click en imprimir.
-3.1.3. ¡Listo!
-3.2.1. Si eligió papel Configure la impresión en el diálogo estándar que se mostrará.
-3.2.2. Haga click en imprimir.
-3.2.3. ¡Listo!
+When a user forgets their pass they are given the option to click on a hyperlink which will start a process to recover it.
+To do this, the program emails the user a code they will need to input in the next screen in order to be able to change their password.
+After that they will be able to login with their new pass.
 
-Ingresar una cirugía
-1. Verificar que el paciente esté ingresado previamente.
-2. Hacer click en el botón flotante rosado. El mismo es solo visible para cirujanos.
-3. Ingresar los datos pertientes. Los datos obligatorios están marcados por un * .
+##Standards used in code
 
-- NOTA -
-  Una cirugia sin fecha puede existir. Aparecerá al inicio de la lista de cirugías sin realizar al ordenar por fecha.
+* [Standard javascript](https://standardjs.com/)
+* [JSDoc comments](http://usejsdoc.org/)
 
-4. Hacer click en guardar.
+##Configuring the clients
 
-Comentar una cirugía
+Two files need to be configured in each client:
 
-- ¿QUÉ ES UN COMENTARIO ACÁ? -
-  Hay infinidad de cosas que uno puede querer registrar y es esfuerzo innecesario poner un campo para cada cosa, llena de elementos innecesarios
-  una interfaz que busca ser minimalista.
-  Para solucionar esto se tomaron los datos más importantes y más repetitivos de procedimiento en procedimiento y se les dió un campo especial,
-  para todos los demás están los comentarios (no master card).
+  * auth-info.json
+  * server-info.json
 
-1. Ingresar a la lista de cirugías.
-2. Individuar la cirugía deseada y hacer click en su ícono o en el borde de la celda correspondiente.
-3. Escribir el comentario deseado en el campo de texto de la zona inferior del diálogo de la cirugía.
-4. Hacer click en comentar.
+Both files can be found in the ~/resources/data directory of the folder that you get when you download the binaries.
+The purpose of the first file is to define an email for the app to use as a sender for recovery code emails. It is encrypted using a Vigenere algorithm.
+The purpose of the second file is to store the login credentials for the app to access the database. It is also encrypted by means of the Vigenere algo.
+Each field uses a different encryption key which can only be retreived by looking at the appropriate portion of the code.
 
-Determinar oportunidad
-
-- NOTA -
-  Dentro del programa se le llama 'Dar visto bueno'. SOLO PUEDE SER HECHO POR USUARIOS ANESTESISTAS.
-
-1. Ingresar a la lista de cirugías.
-2. Individuar la cirugía deseada y hacer click en su ícono o en el borde de la celda correspondiente.
-3. Hacer click en el ícono de opciones que está a la izquierda del de cerrar el diálogo.
-4. Si usted es anestecista verá solamente la opción 'Dar visto bueno'. Hága click ahí.
-5. ¡Listo! Podrá deshacer esto por medio del cuadro que aparecerá en la zona inferior derecha de su pantalla, en el botón 'DESHACER'.
-
-Editar una cirugía
-
-1. Ingresar a la lista de cirugías.
-2. Individuar la cirugía deseada y hacer click en su ícono o en el borde de la celda correspondiente.
-3. Hacer click en el ícono de opciones que está a la izquierda del de cerrar el diálogo.
-4. Si usted es cirujano verá la opción 'Editar'. Hágale click.
-5. Cambie los datos deseados.
-6. Haga click en guardar.
-7. Podrá deshacer los cambios haciendo click en 'DESHACER' en el cuadro que aparecerá en la zona inferior derecha de su pantalla.
-
-Eliminar cirugías
-
-- NOTA -
-  Eliminaciones son algo que solo pueden hacer los administradores. En el caso de una cirugía arrastran la eliminación de sus comentarios.
-
-1. Ingresar a la lista de cirugías.
-2. Individuar la cirugía a eliminar.
-3. Hacer click en el botón de opciones propio de la cirugía. A la derecha de la celda si es administrador, en caso contrario no se ve.
-4. Hacer click en la opción 'Eliminar'.
-5. Puede deshacer la opción haciendo click en el botón correspondiente que aparecerá en la zona inferior derecha de su pantalla.
-
-Usuarios
-
-- NOTA -
-  El control de usuaios está reservado a usuarios administradores.
-
-Registro de un nuevo usuario
-1. Acceder a la lista de usuarios.
-2. Hacer click en el botón flotante rosado que solo está visible para administradores.
-3. Ingresar los datos. Todos son obligatorios.
-4. Hacer click en guardar.
-
-Desactivar un usuario
-
-- NOTA -
-  ¿Y esto qué es?
-  Eliminar un usuario implica eliminar toda huella que haya dejado en el sistema, todos sus pacientes, procedimientos, comentarios...
-  En fin, completamente contraproducente en caso que lo único que se desee sea que el usuario no pueda iniciar sesión en el futuro.
-  Para esto se puede desactivar un usuario. Siguen existiendo todos sus datos del mismo modo que anteriormente pero no puede iniciar sesión.
-
-1. Acceder a la lista de uusarios.
-2. Individuar el usuario a descativar.
-3. Hacer click en el botón de opciones de la celda correspondiente al usuario deseado.
-4. Seleccionar la opción desactivar.
-5. ¡Listo! Podrá deshacer el cambio haciendo click en el botón que aparecerá en el cuadro de abajo a la derecha de su pantalla o buscando en el mismo
-  lugar del botón de desactivar un botón para reactivar el usuario.
-
-Eliminar un usuario
-
-1. Acceder a la lista de usuarios.
-2. Individuar el usuario a eliminar.
-3. Hacer click en el botón de opciones de la celda correspondiente al usuario deseado.
-4. Seleccionar la opción eliminar.
-5. ¡Listo! Se puede deshacer la eliminación haciendo click en el botón del cuadro que aparecerá en la zona inferior derecha de su pantalla.
-
-Cambiar mi contraseña
-
-- NOTA -
-  La contraseña de un usuario es enteramente controlada por el dueño del mismo. Cuando se crea un usuario no tiene contraseña, la debe poner el mismo usuario.
-
-1. Entrar al menú de la aplicación.
-2. Hacer click en la flecha que está en la zona superior, la que tiene información de usuario. Esto desbloqueará las opciones de usuario.
-3. Hacer click en el botón de cambiar la contraseña.
-4. Ingresar los datos necesarios.
-5. Hacer click en guardar.
-6. ¡Listo! Puede deshacer el cambio haciendo click en el botón del cuadro de abajo a la derecha.
-
-Cambiar mi email
-
-1. Entrar al menú de la aplicación.
-2. Hacer click en la flecha que está en la zona superior, la que tiene información de usuario. Esto desbloqueará las opciones de usuario.
-3. Hacer click en el botón de cambiar el email.
-4. Ingresar los datos necesarios.
-5. Hacer click en guardar.
-6. ¡Listo! Puede deshacer el cambio haciendo click en el botón del cuadro de abajo a la derecha.
-
-Cerrar sesión
-
-1. Entrar al menú de la aplicación.
-2. Hacer click en la flecha que está en la zona superior, la que tiene información de usuario. Esto desbloqueará las opciones de usuario.
-3. Hacer click en el botón de cerrar sesión.
-4. Confirme su desición.
-5. ¡Listo! El programa lo llevará a la pantalla de inicio de sesión.
+As long as those two files contain the necessary information the app is usable.

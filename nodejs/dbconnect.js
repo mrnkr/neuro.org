@@ -17,15 +17,6 @@ let pool    =    mysql.createPool({
   debug             :   false
 })
 
-/*let pool    =    mysql.createPool({
-  host              :   '192.168.56.101',
-  user              :   'mrnkr',
-  password          :   'patata2',
-  database          :   'neuro',
-  dateStrings       :   false,
-  debug             :   false
-})*/
-
 let runQuery = function (query, args, callback) {
     pool.getConnection(function (err, connection) {
         if (err) {
